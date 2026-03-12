@@ -1,0 +1,229 @@
+{{ 'section-pps-featured-favorites.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign featured_collection = collections[section.settings.collection]
+  assign products_to_show = section.settings.products_to_show
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --pps-favorites-bg: {{ section.settings.background_color }};
+    --pps-favorites-heading: {{ section.settings.heading_color }};
+    --pps-favorites-text: {{ section.settings.text_color }};
+    --pps-favorites-card-bg: {{ section.settings.card_background }};
+    --pps-favorites-card-border: {{ section.settings.card_border }};
+    --pps-favorites-button-text: {{ section.settings.button_text_color }};
+    --pps-favorites-button-border: {{ section.settings.button_border_color }};
+    --pps-favorites-price: {{ section.settings.price_color }};
+    --pps-favorites-gap: {{ section.settings.grid_gap }}px;
+    --pps-favorites-padding-top: {{ section.settings.padding_top }}px;
+    --pps-favorites-padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{% endstyle %}
+
+<section class="pps-favorites">
+  <div class="pps-favorites__inner page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pps-favorites__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtext != blank -%}
+      <div class="pps-favorites__subtext rte">{{ section.settings.subtext }}</div>
+    {%- endif -%}
+
+    <div class="pps-favorites__grid">
+      {%- if featured_collection != blank and featured_collection.products_count > 0 -%}
+        {%- for product in featured_collection.products limit: products_to_show -%}
+          <article class="pps-favorites__card">
+            <a href="{{ product.url }}" class="pps-favorites__image-link">
+              <div class="pps-favorites__image-wrap">
+                {%- if product.featured_image != blank -%}
+                  {{
+                    product.featured_image
+                    | image_url: width: 700
+                    | image_tag:
+                      class: 'pps-favorites__image',
+                      widths: '240, 320, 480, 640, 700',
+                      alt: product.featured_image.alt | escape
+                  }}
+                {%- else -%}
+                  {{ 'product-apparel-1' | placeholder_svg_tag: 'pps-favorites__image pps-favorites__image--placeholder' }}
+                {%- endif -%}
+              </div>
+            </a>
+
+            <div class="pps-favorites__content">
+              <h3 class="pps-favorites__product-title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+
+              <div class="pps-favorites__price">
+                {{ product.price | money_with_currency }}
+              </div>
+
+              <a href="{{ product.url }}" class="pps-favorites__button">
+                {%- if product.has_only_default_variant -%}
+                  {{ section.settings.button_label_default }}
+                {%- else -%}
+                  {{ section.settings.button_label_options }}
+                {%- endif -%}
+              </a>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..products_to_show) -%}
+          <article class="pps-favorites__card">
+            <div class="pps-favorites__image-wrap">
+              {{ 'product-apparel-1' | placeholder_svg_tag: 'pps-favorites__image pps-favorites__image--placeholder' }}
+            </div>
+            <div class="pps-favorites__content">
+              <h3 class="pps-favorites__product-title">Sample product {{ i }}</h3>
+              <div class="pps-favorites__price">€39,95 EUR</div>
+              <span class="pps-favorites__button">{{ section.settings.button_label_options }}</span>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PPS Featured Favorites",
+  "tag": "section",
+  "class": "section-pps-featured-favorites",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop our Favourites"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Cherry-picked favourites for the chronically online.</p>"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Products to show",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "button_label_default",
+      "label": "Button label for single-variant products",
+      "default": "Add to cart"
+    },
+    {
+      "type": "text",
+      "id": "button_label_options",
+      "label": "Button label for multi-variant products",
+      "default": "Choose options"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 72
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#ececef"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#4b2313"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#846e67"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#e4e5ea"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card border",
+      "default": "#dddddf"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price color",
+      "default": "#4b2313"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#2e2420"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border",
+      "default": "#3c3431"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PPS Featured Favorites"
+    }
+  ]
+}
+{% endschema %}
