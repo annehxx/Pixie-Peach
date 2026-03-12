@@ -34,6 +34,9 @@
     <div class="pps-favorites__grid">
       {%- if featured_collection != blank and featured_collection.products_count > 0 -%}
         {%- for product in featured_collection.products limit: products_to_show -%}
+          {%- liquid
+            assign product_image_alt = product.featured_image.alt | default: product.title | escape
+          -%}
           <article class="pps-favorites__card">
             <a href="{{ product.url }}" class="pps-favorites__image-link">
               <div class="pps-favorites__image-wrap">
@@ -44,7 +47,7 @@
                     | image_tag:
                       class: 'pps-favorites__image',
                       widths: '240, 320, 480, 640, 700',
-                      alt: product.featured_image.alt | escape
+                      alt: product_image_alt
                   }}
                 {%- else -%}
                   {{ 'product-apparel-1' | placeholder_svg_tag: 'pps-favorites__image pps-favorites__image--placeholder' }}

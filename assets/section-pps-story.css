@@ -1,0 +1,128 @@
+.pps-story {
+  background: var(--pps-story-bg);
+  padding: var(--pps-story-padding-top) 0 var(--pps-story-padding-bottom);
+}
+
+.pps-story__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(32rem, 0.85fr);
+  align-items: center;
+  gap: var(--pps-story-gap);
+}
+
+.pps-story__copy {
+  max-width: 72rem;
+}
+
+.pps-story__heading {
+  margin: 0;
+  color: var(--pps-story-heading);
+  font-size: clamp(4.2rem, 5.6vw, 6.6rem);
+  line-height: 0.96;
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.pps-story__text {
+  margin-top: 2.4rem;
+  color: var(--pps-story-text);
+  font-size: 1.8rem;
+  line-height: 1.52;
+}
+
+.pps-story__text p {
+  margin: 0;
+}
+
+.pps-story__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18rem;
+  min-height: 5rem;
+  margin-top: 4.8rem;
+  padding: 1.4rem 2.8rem;
+  border-radius: 999px;
+  background: var(--pps-story-button-bg);
+  color: var(--pps-story-button-text);
+  text-decoration: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  font-weight: 700;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.pps-story__button:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+.pps-story__button[aria-disabled='true'] {
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.pps-story__panel {
+  display: grid;
+  place-items: center;
+  min-height: 54rem;
+  padding: 2.4rem;
+  background: var(--pps-story-panel-bg);
+  border-radius: var(--pps-story-panel-radius);
+  overflow: hidden;
+}
+
+.pps-story__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pps-story__placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 48rem;
+}
+
+.pps-story__placeholder-svg {
+  width: 12rem;
+  height: 12rem;
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 989px) {
+  .pps-story__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .pps-story__copy {
+    max-width: none;
+  }
+
+  .pps-story__panel {
+    min-height: 42rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .pps-story__text {
+    margin-top: 1.8rem;
+    font-size: 1.6rem;
+  }
+
+  .pps-story__button {
+    margin-top: 3.2rem;
+  }
+
+  .pps-story__panel {
+    min-height: 32rem;
+  }
+
+  .pps-story__placeholder {
+    min-height: 28rem;
+  }
+}

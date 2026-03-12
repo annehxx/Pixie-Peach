@@ -1,0 +1,203 @@
+{{ 'section-pps-story.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign story_image_alt = section.settings.image.alt | default: section.settings.heading | escape
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --pps-story-bg: {{ section.settings.background_color }};
+    --pps-story-heading: {{ section.settings.heading_color }};
+    --pps-story-text: {{ section.settings.text_color }};
+    --pps-story-panel-bg: {{ section.settings.image_panel_background }};
+    --pps-story-button-bg: {{ section.settings.button_background }};
+    --pps-story-button-text: {{ section.settings.button_text_color }};
+    --pps-story-padding-top: {{ section.settings.padding_top }}px;
+    --pps-story-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --pps-story-gap: {{ section.settings.column_gap }}px;
+    --pps-story-panel-radius: {{ section.settings.panel_radius }}px;
+  }
+{% endstyle %}
+
+<section class="pps-story">
+  <div class="pps-story__inner page-width">
+    <div class="pps-story__copy">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pps-story__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.text_1 != blank -%}
+        <div class="pps-story__text rte">{{ section.settings.text_1 }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.text_2 != blank -%}
+        <div class="pps-story__text rte">{{ section.settings.text_2 }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          {% if section.settings.button_link != blank %}
+            href="{{ section.settings.button_link }}"
+          {% else %}
+            role="link" aria-disabled="true"
+          {% endif %}
+          class="pps-story__button"
+        >
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="pps-story__media">
+      <div class="pps-story__panel">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'pps-story__image',
+              widths: '500, 700, 900, 1200',
+              alt: story_image_alt
+          }}
+        {%- else -%}
+          <div class="pps-story__placeholder">
+            {{ 'image' | placeholder_svg_tag: 'pps-story__placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PPS Story",
+  "tag": "section",
+  "class": "section-pps-story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Cute Tees. Main Character Energy."
+    },
+    {
+      "type": "richtext",
+      "id": "text_1",
+      "label": "First paragraph",
+      "default": "<p>Life's a little messy - your outfit shouldn't be. Our graphic baby tees combine playful designs with the perfect cropped fit.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "text_2",
+      "label": "Second paragraph",
+      "default": "<p>Wear them out, dress them up, or throw one on when nothing else feels right.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Read Our Story"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Column gap",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "panel_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Image panel radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#ececef"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#4b2313"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#846e67"
+    },
+    {
+      "type": "color",
+      "id": "image_panel_background",
+      "label": "Image panel background",
+      "default": "#d8ccc5"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#7b421f"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#f4d36f"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PPS Story"
+    }
+  ]
+}
+{% endschema %}
