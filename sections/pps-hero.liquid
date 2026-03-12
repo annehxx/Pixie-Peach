@@ -1,5 +1,9 @@
 {{ 'section-pps-hero.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign hero_alt = section.settings.heading | strip_html | escape
+-%}
+
 {% style %}
   #shopify-section-{{ section.id }} {
     --pps-hero-height-desktop: {{ section.settings.hero_height_desktop }}px;
@@ -24,7 +28,7 @@
         | image_tag:
           class: 'pps-hero__image',
           widths: '750, 1100, 1500, 1780, 2000, 2400',
-          alt: section.settings.heading | escape,
+          alt: hero_alt,
           loading: 'eager'
       }}
     {%- else -%}
