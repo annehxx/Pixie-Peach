@@ -107,43 +107,43 @@
 </{{ header_tag }}>
 
 {% if section.settings.enable_sticky %}
-  {% javascript %}
-    class StickyHeader extends HTMLElement {
-      connectedCallback() {
-        this.header = this.closest('.shopify-section');
-        if (!this.header) return;
-
-        this.currentScrollTop = 0;
-        this.onScrollHandler = this.onScroll.bind(this);
-        window.addEventListener('scroll', this.onScrollHandler, false);
-      }
-
-      disconnectedCallback() {
-        window.removeEventListener('scroll', this.onScrollHandler);
-      }
-
-      onScroll() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (scrollTop > this.currentScrollTop && scrollTop > 120) {
-          this.header.classList.add('shopify-section-header-sticky', 'shopify-section-header-hidden');
-        } else {
-          this.header.classList.add('shopify-section-header-sticky');
-          this.header.classList.remove('shopify-section-header-hidden');
-        }
-
-        if (scrollTop <= 0) {
-          this.header.classList.remove('shopify-section-header-sticky', 'shopify-section-header-hidden');
-        }
-
-        this.currentScrollTop = scrollTop;
-      }
-    }
-
+  <script>
     if (!customElements.get('sticky-header')) {
+      class StickyHeader extends HTMLElement {
+        connectedCallback() {
+          this.header = this.closest('.shopify-section');
+          if (!this.header) return;
+
+          this.currentScrollTop = 0;
+          this.onScrollHandler = this.onScroll.bind(this);
+          window.addEventListener('scroll', this.onScrollHandler, false);
+        }
+
+        disconnectedCallback() {
+          window.removeEventListener('scroll', this.onScrollHandler);
+        }
+
+        onScroll() {
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+          if (scrollTop > this.currentScrollTop && scrollTop > 120) {
+            this.header.classList.add('shopify-section-header-sticky', 'shopify-section-header-hidden');
+          } else {
+            this.header.classList.add('shopify-section-header-sticky');
+            this.header.classList.remove('shopify-section-header-hidden');
+          }
+
+          if (scrollTop <= 0) {
+            this.header.classList.remove('shopify-section-header-sticky', 'shopify-section-header-hidden');
+          }
+
+          this.currentScrollTop = scrollTop;
+        }
+      }
+
       customElements.define('sticky-header', StickyHeader);
     }
-  {% endjavascript %}
+  </script>
 {% endif %}
 
 {% schema %}
