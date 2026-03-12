@@ -1,0 +1,291 @@
+{{ 'section-pps-header.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign header_logo = section.settings.logo | default: settings.logo
+  assign logo_alt = header_logo.alt | default: shop.name | escape
+  assign header_tag = 'div'
+
+  if section.settings.enable_sticky
+    assign header_tag = 'sticky-header'
+  endif
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --pps-header-logo-width: {{ section.settings.logo_width }}px;
+    --pps-header-padding-y: {{ section.settings.padding_vertical }}px;
+    --pps-header-padding-x: {{ section.settings.padding_horizontal }}px;
+    --pps-header-bg: {{ section.settings.background_color }};
+    --pps-header-text: {{ section.settings.text_color }};
+    --pps-header-border: {{ section.settings.border_color }};
+  }
+{% endstyle %}
+
+<{{ header_tag }} class="pps-header-shell{% if section.settings.enable_sticky %} pps-header-shell--sticky{% endif %}">
+  <header class="pps-header page-width">
+    <div class="pps-header__logo">
+      <a href="{{ section.settings.logo_link | default: routes.root_url }}" class="pps-header__logo-link">
+        {%- if header_logo != blank -%}
+          {{
+            header_logo
+            | image_url: width: 400
+            | image_tag:
+              class: 'pps-header__logo-image',
+              widths: '120, 180, 240, 320, 400',
+              width: section.settings.logo_width,
+              alt: logo_alt,
+              loading: 'eager'
+          }}
+        {%- else -%}
+          <span class="pps-header__logo-text">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <nav class="pps-header__nav" aria-label="{{ section.settings.menu_label | escape }}">
+      {%- if section.settings.menu != blank -%}
+        <ul class="pps-header__menu list-unstyled" role="list">
+          {%- for link in linklists[section.settings.menu].links -%}
+            <li class="pps-header__menu-item">
+              <a
+                href="{{ link.url }}"
+                class="pps-header__menu-link{% if link.current %} is-active{% endif %}"
+                {% if link.current %}
+                  aria-current="page"
+                {% endif %}
+              >
+                {{- link.title -}}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </nav>
+
+    <div class="pps-header__actions">
+      {%- if section.settings.show_localization -%}
+        <a href="{{ routes.root_url }}" class="pps-header__localization">
+          <span>{{ section.settings.country_label }}</span>
+          <span aria-hidden="true">|</span>
+          <span>{{ section.settings.currency_label }}</span>
+          <span class="pps-header__caret" aria-hidden="true">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_search -%}
+        <a href="{{ routes.search_url }}" class="pps-header__icon-link" aria-label="Search">
+          <span class="pps-header__icon">{{ 'icon-search.svg' | inline_asset_content }}</span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_account and shop.customer_accounts_enabled -%}
+        <a
+          href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+          class="pps-header__icon-link"
+          aria-label="{% if customer %}Account{% else %}Log in{% endif %}"
+        >
+          <span class="pps-header__icon">{{ 'icon-account.svg' | inline_asset_content }}</span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_cart -%}
+        <a href="{{ routes.cart_url }}" class="pps-header__icon-link pps-header__cart-link" aria-label="Cart">
+          <span class="pps-header__icon">
+            {%- if cart == empty -%}
+              {{ 'icon-cart-empty.svg' | inline_asset_content }}
+            {%- else -%}
+              {{ 'icon-cart.svg' | inline_asset_content }}
+            {%- endif -%}
+          </span>
+          {%- if cart != empty and section.settings.show_cart_count -%}
+            <span class="pps-header__cart-count">{{ cart.item_count }}</span>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </header>
+</{{ header_tag }}>
+
+{% if section.settings.enable_sticky %}
+  {% javascript %}
+    class StickyHeader extends HTMLElement {
+      connectedCallback() {
+        this.header = this.closest('.shopify-section');
+        if (!this.header) return;
+
+        this.currentScrollTop = 0;
+        this.onScrollHandler = this.onScroll.bind(this);
+        window.addEventListener('scroll', this.onScrollHandler, false);
+      }
+
+      disconnectedCallback() {
+        window.removeEventListener('scroll', this.onScrollHandler);
+      }
+
+      onScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > this.currentScrollTop && scrollTop > 120) {
+          this.header.classList.add('shopify-section-header-sticky', 'shopify-section-header-hidden');
+        } else {
+          this.header.classList.add('shopify-section-header-sticky');
+          this.header.classList.remove('shopify-section-header-hidden');
+        }
+
+        if (scrollTop <= 0) {
+          this.header.classList.remove('shopify-section-header-sticky', 'shopify-section-header-hidden');
+        }
+
+        this.currentScrollTop = scrollTop;
+      }
+    }
+
+    if (!customElements.get('sticky-header')) {
+      customElements.define('sticky-header', StickyHeader);
+    }
+  {% endjavascript %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "PPS Header",
+  "tag": "section",
+  "class": "section-header",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 60,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 112
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_label",
+      "label": "Navigation label",
+      "default": "Main navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_localization",
+      "label": "Show country and currency",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "country_label",
+      "label": "Country label",
+      "default": "Germany"
+    },
+    {
+      "type": "text",
+      "id": "currency_label",
+      "label": "Currency label",
+      "default": "EUR"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart_count",
+      "label": "Show cart count",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky",
+      "label": "Enable sticky header",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#e8e8eb"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#6d5650"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Bottom border",
+      "default": "#d8d0cd"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "PPS Header"
+    }
+  ]
+}
+{% endschema %}
