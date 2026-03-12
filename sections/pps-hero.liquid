@@ -1,0 +1,192 @@
+{{ 'section-pps-hero.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --pps-hero-height-desktop: {{ section.settings.hero_height_desktop }}px;
+    --pps-hero-height-mobile: {{ section.settings.hero_height_mobile }}px;
+    --pps-hero-card-max-width: {{ section.settings.card_max_width }}px;
+    --pps-hero-card-bg: {{ section.settings.card_background }};
+    --pps-hero-heading-color: {{ section.settings.heading_color }};
+    --pps-hero-text-color: {{ section.settings.text_color }};
+    --pps-hero-button-bg: {{ section.settings.button_background }};
+    --pps-hero-button-text: {{ section.settings.button_text_color }};
+    --pps-hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --pps-hero-section-gap: {{ section.settings.margin_bottom }}px;
+  }
+{% endstyle %}
+
+<section class="pps-hero">
+  <div class="pps-hero__media">
+    {%- if section.settings.background_image != blank -%}
+      {{
+        section.settings.background_image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'pps-hero__image',
+          widths: '750, 1100, 1500, 1780, 2000, 2400',
+          alt: section.settings.heading | escape,
+          loading: 'eager'
+      }}
+    {%- else -%}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'pps-hero__image pps-hero__image--placeholder' }}
+    {%- endif -%}
+
+    <div class="pps-hero__overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="pps-hero__content-wrap page-width">
+    <div class="pps-hero__card">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pps-hero__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <div class="pps-hero__subtext rte">{{ section.settings.subtext }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          {% if section.settings.button_link != blank %}
+            href="{{ section.settings.button_link }}"
+          {% else %}
+            role="link" aria-disabled="true"
+          {% endif %}
+          class="pps-hero__button"
+        >
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PPS Hero",
+  "tag": "section",
+  "class": "section-pps-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Warning: Outfit May Cause Attention"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Soft cotton. Cute graphics. Perfect fit.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "hero_height_desktop",
+      "min": 420,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "label": "Desktop height",
+      "default": 580
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "min": 360,
+      "max": 760,
+      "step": 20,
+      "unit": "px",
+      "label": "Mobile height",
+      "default": 520
+    },
+    {
+      "type": "range",
+      "id": "card_max_width",
+      "min": 320,
+      "max": 760,
+      "step": 20,
+      "unit": "px",
+      "label": "Card width",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "label": "Image overlay",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ececed"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#252129"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#8f8888"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#12131a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PPS Hero"
+    }
+  ]
+}
+{% endschema %}

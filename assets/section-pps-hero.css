@@ -1,0 +1,132 @@
+.pps-hero {
+  position: relative;
+  min-height: var(--pps-hero-height-desktop);
+  margin-bottom: var(--pps-hero-section-gap);
+  overflow: hidden;
+}
+
+.pps-hero__media,
+.pps-hero__image,
+.pps-hero__overlay,
+.pps-hero__content-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.pps-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pps-hero__image--placeholder {
+  background: linear-gradient(135deg, #f4dede 0%, #f8f3f1 100%);
+}
+
+.pps-hero__overlay {
+  background: rgb(255 255 255 / var(--pps-hero-overlay-opacity));
+}
+
+.pps-hero__content-wrap {
+  display: grid;
+  place-items: center;
+  padding: 3rem 2rem;
+  z-index: 1;
+}
+
+.pps-hero__card {
+  width: min(100%, var(--pps-hero-card-max-width));
+  padding: 5.2rem 4.4rem 4rem;
+  background: var(--pps-hero-card-bg);
+  text-align: center;
+  border-radius: 1.4rem;
+  box-shadow: 0 1.6rem 4rem rgb(17 18 24 / 0.12);
+}
+
+.pps-hero__heading {
+  margin: 0;
+  color: var(--pps-hero-heading-color);
+  font-size: clamp(4.2rem, 6vw, 7rem);
+  line-height: 0.95;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.pps-hero__subtext {
+  margin: 2.6rem auto 0;
+  max-width: 40rem;
+  color: var(--pps-hero-text-color);
+  font-size: 1.8rem;
+  line-height: 1.5;
+}
+
+.pps-hero__subtext p {
+  margin: 0;
+}
+
+.pps-hero__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 23rem;
+  margin-top: 3.4rem;
+  padding: 1.9rem 3.6rem;
+  border-radius: 999px;
+  background: var(--pps-hero-button-bg);
+  color: var(--pps-hero-button-text);
+  text-decoration: none;
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.pps-hero__button:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+.pps-hero__button[aria-disabled='true'] {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 989px) {
+  .pps-hero {
+    min-height: var(--pps-hero-height-mobile);
+  }
+
+  .pps-hero__card {
+    padding: 4rem 3rem 3.2rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .pps-hero__content-wrap {
+    padding: 2rem 1.6rem;
+  }
+
+  .pps-hero__card {
+    width: 100%;
+    padding: 3.2rem 2.2rem 2.8rem;
+    border-radius: 1.2rem;
+  }
+
+  .pps-hero__heading {
+    font-size: clamp(3.4rem, 11vw, 5rem);
+  }
+
+  .pps-hero__subtext {
+    margin-top: 1.8rem;
+    font-size: 1.6rem;
+  }
+
+  .pps-hero__button {
+    min-width: 19rem;
+    margin-top: 2.6rem;
+    padding: 1.6rem 2.8rem;
+    font-size: 1.6rem;
+  }
+}
