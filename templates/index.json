@@ -34,7 +34,7 @@
       "type": "animated-pink-banner",
       "name": "t:sections.animated_pink_banner.presets.name",
       "settings": {
-        "banner_text": "For the pop culture obsessed",
+        "banner_text": "For the chronically online",
         "banner_color": "#E8B4D0",
         "text_color": "#FFFFFF",
         "padding_top": 0,
@@ -112,8 +112,8 @@
   "order": [
     "pps_hero_V8CwW8",
     "animated_pink_banner_yhfLVk",
-    "pps_featured_favorites_d7GkiV",
+    "collection_showcase_BtECtq",
     "pps_story_creJDi",
-    "collection_showcase_BtECtq"
+    "pps_featured_favorites_d7GkiV"
   ]
 }
