@@ -58,6 +58,7 @@
         "description",
         "share"
       ],
+      "disabled": true,
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-6",
@@ -72,6 +73,50 @@
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
+      }
+    },
+    "pps_single_product_aK4VVd": {
+      "type": "pps-single-product",
+      "blocks": {
+        "detail_TRBMLb": {
+          "type": "detail",
+          "settings": {
+            "heading": "Shipping & returns",
+            "content": "<p>Add shipping, returns, sizing or care details here.</p>"
+          }
+        },
+        "detail_KFcnRA": {
+          "type": "detail",
+          "settings": {
+            "heading": "Product details",
+            "content": "<p>Use this space for fabric, fit, print or care instructions.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "detail_TRBMLb",
+        "detail_KFcnRA"
+      ],
+      "name": "PPS Single Product",
+      "settings": {
+        "show_vendor": false,
+        "show_description": true,
+        "button_label": "Add to cart",
+        "trust_text_1": "Soft-girl approved",
+        "trust_text_2": "Made to be noticed",
+        "trust_text_3": "Cute with everything",
+        "column_gap": 64,
+        "panel_radius": 26,
+        "padding_top": 48,
+        "padding_bottom": 72,
+        "background_color": "#fff9fd",
+        "heading_color": "#191516",
+        "text_color": "#5f4d57",
+        "accent_color": "#ff5fa2",
+        "surface_color": "#ffffff",
+        "border_color": "#f1c7dc",
+        "button_background": "#ff5fa2",
+        "button_text_color": "#ffffff"
       }
     },
     "related-products": {
@@ -95,6 +140,7 @@
   },
   "order": [
     "main",
+    "pps_single_product_aK4VVd",
     "related-products"
   ]
 }
