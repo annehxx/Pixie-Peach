@@ -1,0 +1,229 @@
+{{ 'section-editorial-vault-banner.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign banner_alt = section.settings.heading | strip_html | escape
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --vault-banner-height-desktop: {{ section.settings.height_desktop }}px;
+    --vault-banner-height-mobile: {{ section.settings.height_mobile }}px;
+    --vault-banner-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --vault-banner-content-max-width: {{ section.settings.content_max_width }}px;
+    --vault-banner-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --vault-banner-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --vault-banner-text-color: {{ section.settings.text_color }};
+    --vault-banner-horizontal-padding: {{ section.settings.content_padding_horizontal }}px;
+    --vault-banner-vertical-padding: {{ section.settings.content_padding_vertical }}px;
+  }
+{%- endstyle -%}
+
+<section class="vault-banner vault-banner--{{ section.settings.content_position }}">
+  <div class="vault-banner__media">
+    {%- if section.settings.background_image != blank -%}
+      {{
+        section.settings.background_image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'vault-banner__image',
+          widths: '750, 1100, 1500, 1780, 2000, 2400',
+          alt: banner_alt,
+          loading: 'lazy'
+      }}
+    {%- else -%}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'vault-banner__image vault-banner__image--placeholder' }}
+    {%- endif -%}
+    <div class="vault-banner__overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="vault-banner__content page-width">
+    <div class="vault-banner__copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="vault-banner__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="vault-banner__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <div class="vault-banner__subtext rte">{{ section.settings.subtext }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          {% if section.settings.button_link != blank %}
+            href="{{ section.settings.button_link }}"
+          {% else %}
+            role="link" aria-disabled="true"
+          {% endif %}
+          class="vault-banner__button"
+        >
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial Vault Banner",
+  "tag": "section",
+  "class": "section-editorial-vault-banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Hintergrundbild"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Kleiner Text oben",
+      "default": "NEW DROP"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "default": "Fresh Out the Vault"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Untertext",
+      "default": "<p>Editoriales Banner mit starker Bildwirkung.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button-Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Textposition",
+      "default": "bottom-left",
+      "options": [
+        {
+          "value": "bottom-left",
+          "label": "Unten links"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Unten mittig"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Unten rechts"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "min": 320,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "label": "Höhe Desktop",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "min": 240,
+      "max": 700,
+      "step": 20,
+      "unit": "px",
+      "label": "Höhe Mobile",
+      "default": 360
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 280,
+      "max": 1100,
+      "step": 20,
+      "unit": "px",
+      "label": "Maximale Textbreite",
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "content_padding_horizontal",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Innenabstand horizontal",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "content_padding_vertical",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Innenabstand vertikal",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Deckkraft",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Typografie & Farben"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 32,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline Desktop",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline Mobile",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Textfarbe",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial Vault Banner"
+    }
+  ]
+}
+{% endschema %}
