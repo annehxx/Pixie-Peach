@@ -1,0 +1,270 @@
+{{ 'section-pps-icon-closet.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --pps-icon-closet-bg: {{ section.settings.background_color }};
+    --pps-icon-closet-heading: {{ section.settings.heading_color }};
+    --pps-icon-closet-card-bg: {{ section.settings.card_background }};
+    --pps-icon-closet-card-text: {{ section.settings.card_text_color }};
+    --pps-icon-closet-shadow: {{ section.settings.shadow_color | color_modify: 'alpha', 0.16 }};
+    --pps-icon-closet-padding-top: {{ section.settings.padding_top }}px;
+    --pps-icon-closet-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --pps-icon-closet-gap: {{ section.settings.card_gap }}px;
+    --pps-icon-closet-card-width: {{ section.settings.card_width }}px;
+    --pps-icon-closet-image-height: {{ section.settings.image_height }}px;
+  }
+{% endstyle %}
+
+<section class="pps-icon-closet">
+  <div class="pps-icon-closet__inner page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pps-icon-closet__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="pps-icon-closet__track">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign block_title = block.settings.title | default: block.settings.collection.title
+          assign block_url = block.settings.link | default: block.settings.collection.url
+          assign block_image = block.settings.image
+          if block_image == blank and block.settings.collection != blank
+            assign block_image = block.settings.collection.featured_image
+          endif
+        -%}
+        <article
+          class="pps-icon-closet__card pps-icon-closet__card--{{ block.settings.rotation }}"
+          {{ block.shopify_attributes }}
+        >
+          <a
+            {% if block_url != blank %}
+              href="{{ block_url }}"
+            {% else %}
+              role="link" aria-disabled="true"
+            {% endif %}
+            class="pps-icon-closet__card-link"
+          >
+            <div class="pps-icon-closet__photo">
+              {%- if block_image != blank -%}
+                {{
+                  block_image
+                  | image_url: width: 900
+                  | image_tag:
+                    class: 'pps-icon-closet__image',
+                    widths: '220, 320, 480, 680, 900',
+                    sizes: '(min-width: 990px) 18vw, (min-width: 750px) 26vw, 58vw',
+                    alt: block_title,
+                    loading: 'lazy'
+                }}
+              {%- else -%}
+                {{ 'collection-1' | placeholder_svg_tag: 'pps-icon-closet__image pps-icon-closet__image--placeholder' }}
+              {%- endif -%}
+            </div>
+            <div class="pps-icon-closet__label">{{ block_title }}</div>
+          </a>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PPS Icon Closet",
+  "tag": "section",
+  "class": "section-pps-icon-closet",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Closet Full of Icons"
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "min": 160,
+      "max": 320,
+      "step": 10,
+      "unit": "px",
+      "label": "Card width",
+      "default": 220
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "min": 140,
+      "max": 320,
+      "step": 10,
+      "unit": "px",
+      "label": "Image height",
+      "default": 210
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Card gap",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#9387e9"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#fffdfb"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text",
+      "default": "#322136"
+    },
+    {
+      "type": "color",
+      "id": "shadow_color",
+      "label": "Shadow color",
+      "default": "#3f3474"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "closet_card",
+      "name": "Closet card",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title override"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom link"
+        },
+        {
+          "type": "select",
+          "id": "rotation",
+          "label": "Rotation",
+          "default": "left-sm",
+          "options": [
+            {
+              "value": "left-sm",
+              "label": "Tilt left small"
+            },
+            {
+              "value": "left-lg",
+              "label": "Tilt left large"
+            },
+            {
+              "value": "none",
+              "label": "Straight"
+            },
+            {
+              "value": "right-sm",
+              "label": "Tilt right small"
+            },
+            {
+              "value": "right-lg",
+              "label": "Tilt right large"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PPS Icon Closet",
+      "blocks": [
+        {
+          "type": "closet_card",
+          "settings": {
+            "title": "Pixie Favorites",
+            "rotation": "left-sm"
+          }
+        },
+        {
+          "type": "closet_card",
+          "settings": {
+            "title": "Sweet & Sparkly",
+            "rotation": "right-sm"
+          }
+        },
+        {
+          "type": "closet_card",
+          "settings": {
+            "title": "Peachy Prints",
+            "rotation": "left-lg"
+          }
+        },
+        {
+          "type": "closet_card",
+          "settings": {
+            "title": "Main Character",
+            "rotation": "none"
+          }
+        },
+        {
+          "type": "closet_card",
+          "settings": {
+            "title": "Cute Chaos",
+            "rotation": "right-lg"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
