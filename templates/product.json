@@ -58,6 +58,7 @@
         "description",
         "share"
       ],
+      "disabled": true,
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-6",
@@ -72,6 +73,50 @@
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
+      }
+    },
+    "pps_single_product_aK4VVd": {
+      "type": "pps-single-product",
+      "blocks": {
+        "detail_TRBMLb": {
+          "type": "detail",
+          "settings": {
+            "heading": "Shipping & returns",
+            "content": "<p>Add shipping, returns, sizing or care details here.</p>"
+          }
+        },
+        "detail_KFcnRA": {
+          "type": "detail",
+          "settings": {
+            "heading": "Product details",
+            "content": "<p>Use this space for fabric, fit, print or care instructions.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "detail_TRBMLb",
+        "detail_KFcnRA"
+      ],
+      "name": "PPS Single Product",
+      "settings": {
+        "show_vendor": false,
+        "show_description": true,
+        "button_label": "Add to cart",
+        "trust_text_1": "",
+        "trust_text_2": "",
+        "trust_text_3": "",
+        "column_gap": 64,
+        "panel_radius": 26,
+        "padding_top": 36,
+        "padding_bottom": 124,
+        "background_color": "#ffffff",
+        "heading_color": "#191516",
+        "text_color": "#5f4d57",
+        "accent_color": "#6d5650",
+        "surface_color": "#ffffff",
+        "border_color": "#6d5650",
+        "button_background": "#6d5650",
+        "button_text_color": "#ffffff"
       }
     },
     "related-products": {
@@ -95,6 +140,7 @@
   },
   "order": [
     "main",
+    "pps_single_product_aK4VVd",
     "related-products"
   ]
 }
