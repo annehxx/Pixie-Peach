@@ -165,15 +165,21 @@
         "collection": "favorites",
         "heading": "Shop our Favourites",
         "subtext": "<p>Cherry-picked favourites for the chronically online.</p>",
+        "link_label": "Shop Collection",
         "products_to_show": 5,
         "button_label_default": "Add to cart",
         "button_label_options": "Choose options",
         "grid_gap": 18,
+        "card_radius": 16,
+        "image_ratio": "0.8",
+        "heading_size_desktop": 58,
+        "heading_size_mobile": 36,
         "padding_top": 48,
         "padding_bottom": 72,
         "background_color": "#ececef",
         "heading_color": "#4b2313",
         "text_color": "#846e67",
+        "link_color": "#8f85e7",
         "price_color": "#4b2313"
       }
     },
@@ -184,7 +190,7 @@
           "type": "faq_item",
           "settings": {
             "question": "What's your return/exchange policy?",
-            "answer": "<p>Use this area to answer the question in the same editorial style as the rest of the page.</p>"
+            "answer": "<p>We’re all about obsession. We pour our heart into every design. And all we want is for it to capture yours. We're sorry if your merch arrived damaged or if you got the wrong one. Just email us at honeyandblush.shop@gmail.com within 3 days with your order number and a photo. We’ll arrange a replacement or refund for you ASAP. Need more info? Read the whole policy <a href=\"https://thebadromance.com/policies/refund-policy\" title=\"Refund Policy\">here</a>.<br/><br/></p>"
           }
         },
         "faq_item_C4AQD7": {
