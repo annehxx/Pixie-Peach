@@ -105,7 +105,7 @@
 .pps-single__title {
   margin: 0;
   color: var(--pps-single-heading);
-  font-family: "IvyPresto Display", "Times New Roman", serif;
+  font-family: var(--font-heading-family);
   font-size: clamp(3.8rem, 5vw, 6.8rem);
   line-height: 0.94;
   letter-spacing: -0.04em;
@@ -331,7 +331,7 @@
 
 .pps-single__accordion-title {
   color: var(--pps-single-heading);
-  font-family: "IvyPresto Display", "Times New Roman", serif;
+  font-family: var(--font-heading-family);
   font-size: clamp(1.9rem, 2.2vw, 2.5rem);
   font-weight: 400;
   line-height: 1.1;
