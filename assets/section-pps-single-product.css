@@ -19,6 +19,7 @@
   display: grid;
   gap: 1.6rem;
   padding-top: 1.4rem;
+  padding-bottom: 1.4rem;
 }
 
 .pps-single__media-stage {
@@ -385,6 +386,7 @@
 
   .pps-single__media-frame {
     padding-top: 0;
+    padding-bottom: 0;
   }
 
   .pps-single__media-stage {
