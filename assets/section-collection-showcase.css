@@ -1,71 +1,148 @@
+.collection-showcase {
+  background: #fff;
+}
+
 .collection-showcase__header {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  align-items: center;
   gap: 2rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
+  margin-bottom: 2.8rem;
 }
 
 .collection-showcase__title {
   margin: 0;
-  font-size: clamp(1.8rem, 5vw, 3rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  flex: 0 1 auto;
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: var(--collection-showcase-heading-size-desktop);
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
 }
 
 .collection-showcase__link {
-  flex-shrink: 0;
-  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  padding-top: 1.2rem;
+  color: var(--collection-showcase-link-color);
+  text-decoration: none;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* Responsive */
+.collection-showcase__link:hover {
+  opacity: 0.82;
+  transform: translateY(-0.1rem);
+}
+
+.collection-showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--collection-showcase-columns-mobile), minmax(0, 1fr));
+  gap: var(--collection-showcase-gap-mobile);
+}
+
+.collection-showcase__card {
+  min-width: 0;
+}
+
+.collection-showcase__image-link {
+  display: block;
+  text-decoration: none;
+}
+
+.collection-showcase__image-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--collection-showcase-card-radius);
+  background: linear-gradient(135deg, #beb6f5 0%, #f5b6df 100%);
+  aspect-ratio: 0.79;
+}
+
+.collection-showcase__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease, filter 0.3s ease;
+}
+
+.collection-showcase__image--placeholder {
+  background: linear-gradient(135deg, #beb6f5 0%, #f5b6df 100%);
+}
+
+.collection-showcase__card:hover .collection-showcase__image {
+  transform: scale(1.025);
+  filter: saturate(1.02);
+}
+
+.collection-showcase__content {
+  padding-top: 1.5rem;
+}
+
+.collection-showcase__product-title {
+  margin: 0;
+  color: rgb(var(--color-foreground));
+  font-size: clamp(2rem, 1.2vw, 2.6rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.collection-showcase__product-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.collection-showcase__price {
+  margin-top: 0.65rem;
+}
+
+.collection-showcase__price-render.price {
+  color: var(--collection-showcase-price-color);
+}
+
+.collection-showcase__price-render .price-item {
+  font-size: 1.35rem;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.collection-showcase__empty {
+  padding: 2rem 0;
+  color: rgba(var(--color-foreground), 0.72);
+  font-size: 1.6rem;
+}
+
+@media screen and (min-width: 750px) {
+  .collection-showcase__grid {
+    grid-template-columns: repeat(var(--collection-showcase-columns-desktop), minmax(0, 1fr));
+    gap: var(--collection-showcase-gap-desktop);
+  }
+}
+
 @media screen and (max-width: 749px) {
   .collection-showcase__header {
     flex-direction: column;
-    align-items: flex-start;
     margin-bottom: 2rem;
   }
 
   .collection-showcase__title {
-    font-size: 1.5rem;
+    font-size: var(--collection-showcase-heading-size-mobile);
   }
 
   .collection-showcase__link {
-    width: 100%;
-    text-align: center;
+    padding-top: 0;
+    font-size: 1.5rem;
   }
-}
 
-/* Product Grid Animation */
-.grid__item {
-  animation: fadeInScale 0.6s ease-out forwards;
-}
-
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
+  .collection-showcase__content {
+    padding-top: 1.2rem;
   }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 
-.grid__item:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.grid__item:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.grid__item:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.grid__item:nth-child(4) {
-  animation-delay: 0.4s;
-}
-.grid__item:nth-child(n+5) {
-  animation-delay: 0.5s;
+  .collection-showcase__product-title {
+    font-size: 1.8rem;
+  }
 }
