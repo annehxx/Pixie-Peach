@@ -96,7 +96,7 @@
           "type": "detail",
           "settings": {
             "heading": "Sizing",
-            "content": "<p>Use this space for fabric, fit, print or care instructions.</p>"
+            "content": "<p>Check out our sizing gide in the pictures!</p>"
           }
         }
       },
@@ -109,6 +109,10 @@
       "settings": {
         "show_vendor": false,
         "show_description": true,
+        "show_rating": false,
+        "rating_value": 4.8,
+        "rating_count_label": "127 reviews",
+        "rating_caption": "Loved by girls who like their basics extra cute.",
         "button_label": "Add to cart",
         "trust_text_1": "",
         "trust_text_2": "",
