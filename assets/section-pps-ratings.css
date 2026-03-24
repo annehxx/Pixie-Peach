@@ -1,0 +1,128 @@
+.pps-ratings {
+  background: var(--pps-ratings-bg);
+  padding-top: var(--pps-ratings-top);
+  padding-bottom: var(--pps-ratings-bottom);
+  color: var(--pps-ratings-text);
+}
+
+.pps-ratings__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 4rem;
+  align-items: start;
+}
+
+.pps-ratings .rating-star {
+  --color-rating-star: var(--pps-ratings-accent);
+}
+
+.pps-ratings__eyebrow {
+  margin: 0 0 1rem;
+  color: var(--pps-ratings-accent);
+  font-size: 1.2rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.pps-ratings__heading {
+  margin: 0;
+  color: var(--pps-ratings-heading);
+  font-family: var(--font-heading-family);
+  font-size: clamp(3.4rem, 4.6vw, 5.6rem);
+  line-height: 0.95;
+}
+
+.pps-ratings__text {
+  margin-top: 1.6rem;
+  max-width: 48rem;
+  font-size: 1.55rem;
+  line-height: 1.7;
+}
+
+.pps-ratings__summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin-top: 2.6rem;
+  padding: 1.8rem 2rem;
+  border: 1px solid var(--pps-ratings-border);
+  border-radius: calc(var(--pps-ratings-radius) * 0.75);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.pps-ratings__summary-score {
+  color: var(--pps-ratings-heading);
+  font-family: var(--font-heading-family);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.pps-ratings__summary-meta {
+  font-size: 1.35rem;
+}
+
+.pps-ratings__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.8rem;
+}
+
+.pps-ratings__card {
+  display: grid;
+  gap: 1.2rem;
+  padding: 2.2rem;
+  border: 1px solid var(--pps-ratings-border);
+  border-radius: var(--pps-ratings-radius);
+  background: var(--pps-ratings-card);
+}
+
+.pps-ratings__card-title {
+  margin: 0;
+  color: var(--pps-ratings-heading);
+  font-family: var(--font-heading-family);
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.pps-ratings__card-text {
+  font-size: 1.45rem;
+  line-height: 1.7;
+}
+
+.pps-ratings__card-text p {
+  margin: 0;
+}
+
+.pps-ratings__card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.2rem;
+  align-items: center;
+}
+
+.pps-ratings__author {
+  color: var(--pps-ratings-heading);
+  font-weight: 600;
+}
+
+.pps-ratings__meta {
+  font-size: 1.3rem;
+  color: var(--pps-ratings-text);
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 989px) {
+  .pps-ratings__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .pps-ratings__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pps-ratings__summary {
+    width: 100%;
+  }
+}

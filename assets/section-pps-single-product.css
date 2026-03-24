@@ -113,6 +113,41 @@
   letter-spacing: -0.04em;
 }
 
+.pps-single__rating-row {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: -0.8rem;
+}
+
+.pps-single__rating-display {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.pps-single__rating-display .rating-star {
+  --color-rating-star: var(--pps-single-accent);
+}
+
+.pps-single__rating-score {
+  color: var(--pps-single-heading);
+  font-size: 1.55rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.pps-single__rating-count {
+  font-size: 1.35rem;
+  color: var(--pps-single-text);
+}
+
+.pps-single__rating-caption {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--pps-single-text);
+}
+
 .pps-single__price-wrap {
   display: flex;
   flex-wrap: wrap;

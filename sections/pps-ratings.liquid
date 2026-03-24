@@ -1,0 +1,278 @@
+{{ 'component-rating.css' | asset_url | stylesheet_tag }}
+{{ 'section-pps-ratings.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="pps-ratings"
+  style="
+    --pps-ratings-bg: {{ section.settings.background_color }};
+    --pps-ratings-heading: {{ section.settings.heading_color }};
+    --pps-ratings-text: {{ section.settings.text_color }};
+    --pps-ratings-accent: {{ section.settings.accent_color }};
+    --pps-ratings-card: {{ section.settings.card_color }};
+    --pps-ratings-border: {{ section.settings.border_color }};
+    --pps-ratings-top: {{ section.settings.padding_top }}px;
+    --pps-ratings-bottom: {{ section.settings.padding_bottom }}px;
+    --pps-ratings-radius: {{ section.settings.card_radius }}px;
+  "
+>
+  <div class="pps-ratings__inner page-width">
+    <div class="pps-ratings__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="pps-ratings__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2 class="pps-ratings__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.text != blank %}
+        <div class="pps-ratings__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+
+      {% liquid
+        assign summary_decimal = 0
+        assign summary_rating = section.settings.rating_value
+        assign decimal = summary_rating | modulo: 1
+        if decimal >= 0.3 and decimal <= 0.7
+          assign summary_decimal = 0.5
+        elsif decimal > 0.7
+          assign summary_decimal = 1
+        endif
+      %}
+
+      <div class="pps-ratings__summary">
+        <div
+          class="rating"
+          role="img"
+          aria-label="{{ section.settings.rating_value }} / 5"
+        >
+          <span
+            aria-hidden="true"
+            class="rating-star"
+            style="--rating: {{ section.settings.rating_value | floor }}; --rating-max: 5; --rating-decimal: {{ summary_decimal }};"
+          ></span>
+        </div>
+        <div class="pps-ratings__summary-copy">
+          <div class="pps-ratings__summary-score">{{ section.settings.rating_value }}</div>
+          <div class="pps-ratings__summary-meta">{{ section.settings.review_count_label }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pps-ratings__grid">
+      {% for block in section.blocks %}
+        {% liquid
+          assign block_decimal = 0
+          assign block_rating = block.settings.rating
+          assign block_rating_fraction = block_rating | modulo: 1
+          if block_rating_fraction >= 0.3 and block_rating_fraction <= 0.7
+            assign block_decimal = 0.5
+          elsif block_rating_fraction > 0.7
+            assign block_decimal = 1
+          endif
+        %}
+        <article class="pps-ratings__card" {{ block.shopify_attributes }}>
+          <div
+            class="rating"
+            role="img"
+            aria-label="{{ block.settings.rating }} / 5"
+          >
+            <span
+              aria-hidden="true"
+              class="rating-star"
+              style="--rating: {{ block.settings.rating | floor }}; --rating-max: 5; --rating-decimal: {{ block_decimal }};"
+            ></span>
+          </div>
+
+          {% if block.settings.title != blank %}
+            <h3 class="pps-ratings__card-title">{{ block.settings.title }}</h3>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <div class="pps-ratings__card-text rte">{{ block.settings.text }}</div>
+          {% endif %}
+
+          <div class="pps-ratings__card-footer">
+            {% if block.settings.author != blank %}
+              <span class="pps-ratings__author">{{ block.settings.author }}</span>
+            {% endif %}
+            {% if block.settings.meta != blank %}
+              <span class="pps-ratings__meta">{{ block.settings.meta }}</span>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PPS Ratings",
+  "tag": "section",
+  "class": "section-pps-ratings",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Reviews"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Loved by the Pixie Peach girls"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Use this section for customer love notes, social proof and the overall shop rating.</p>"
+    },
+    {
+      "type": "range",
+      "id": "rating_value",
+      "label": "Overall rating",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "default": 4.9
+    },
+    {
+      "type": "text",
+      "id": "review_count_label",
+      "label": "Review count label",
+      "default": "Based on 127 reviews"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card radius",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 72
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#fff8fc"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#191516"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#5f4d57"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#ff5fa2"
+    },
+    {
+      "type": "color",
+      "id": "card_color",
+      "label": "Card color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#f1c7dc"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 0,
+          "max": 5,
+          "step": 0.1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "My new favorite tee"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Super cute fit, soft fabric and the print looks even better in real life.</p>"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Lena"
+        },
+        {
+          "type": "text",
+          "id": "meta",
+          "label": "Meta",
+          "default": "Verified buyer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PPS Ratings",
+      "blocks": [
+        {
+          "type": "review"
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "So many compliments",
+            "text": "<p>I wore it once and immediately got asked where it was from. Exactly the vibe I wanted.</p>",
+            "author": "Mia"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Obsessed",
+            "text": "<p>The fit is flattering and the whole piece feels more special than a basic graphic top.</p>",
+            "author": "Sophie"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

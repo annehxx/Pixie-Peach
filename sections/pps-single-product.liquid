@@ -1,3 +1,4 @@
+{{ 'component-rating.css' | asset_url | stylesheet_tag }}
 {{ 'section-pps-single-product.css' | asset_url | stylesheet_tag }}
 {{ 'product-form.js' | asset_url | script_tag }}
 
@@ -87,6 +88,66 @@
         {% endif %}
 
         <h1 class="pps-single__title">{{ product.title }}</h1>
+
+        {% liquid
+          assign product_rating = product.metafields.reviews.rating.value.rating
+          assign product_rating_max = product.metafields.reviews.rating.value.scale_max
+          assign product_rating_count = product.metafields.reviews.rating_count
+          assign rating_decimal = 0
+
+          if product_rating != blank
+            assign decimal = product_rating | modulo: 1
+            if decimal >= 0.3 and decimal <= 0.7
+              assign rating_decimal = 0.5
+            elsif decimal > 0.7
+              assign rating_decimal = 1
+            endif
+          endif
+        %}
+
+        {% if section.settings.show_rating %}
+          <div class="pps-single__rating-row">
+            {% if product_rating != blank %}
+              <div class="pps-single__rating-display">
+                <div
+                  class="rating"
+                  role="img"
+                  aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: product.metafields.reviews.rating.value, rating_max: product_rating_max }}"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="rating-star"
+                    style="--rating: {{ product_rating | floor }}; --rating-max: {{ product_rating_max }}; --rating-decimal: {{ rating_decimal }};"
+                  ></span>
+                </div>
+                <span class="pps-single__rating-score">{{ product_rating | round: 1 }}</span>
+                {% if product_rating_count != blank %}
+                  <span class="pps-single__rating-count">({{ product_rating_count }})</span>
+                {% endif %}
+              </div>
+            {% else %}
+              <div class="pps-single__rating-display">
+                <div
+                  class="rating"
+                  role="img"
+                  aria-label="{{ section.settings.rating_value }} / 5"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="rating-star"
+                    style="--rating: {{ section.settings.rating_value | floor }}; --rating-max: 5; --rating-decimal: 0;"
+                  ></span>
+                </div>
+                <span class="pps-single__rating-score">{{ section.settings.rating_value }}</span>
+                <span class="pps-single__rating-count">({{ section.settings.rating_count_label }})</span>
+              </div>
+            {% endif %}
+
+            {% if section.settings.rating_caption != blank %}
+              <p class="pps-single__rating-caption">{{ section.settings.rating_caption }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
 
         <div class="pps-single__price-wrap">
           <span class="pps-single__price" data-price>{{ current_variant.price | money_with_currency }}</span>
@@ -373,6 +434,33 @@
       "id": "show_description",
       "label": "Show description",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "rating_value",
+      "label": "Fallback rating",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "default": 4.9
+    },
+    {
+      "type": "text",
+      "id": "rating_count_label",
+      "label": "Fallback rating count",
+      "default": "127 reviews"
+    },
+    {
+      "type": "text",
+      "id": "rating_caption",
+      "label": "Rating caption",
+      "default": "Loved by girls who like their basics extra cute."
     },
     {
       "type": "text",
