@@ -1,8 +1,6 @@
 .pps-header-shell {
   background: var(--pps-header-bg);
   border-bottom: 1px solid var(--pps-header-border);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 1.2rem 3rem rgb(17 18 24 / 0.04);
   position: relative;
   z-index: 30;
 }
@@ -141,12 +139,7 @@
   top: 100%;
   left: 0;
   width: 100%;
-  padding-top: 0;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(0.8rem);
-  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  display: none;
   z-index: 20;
 }
 
@@ -160,8 +153,8 @@
 
 .pps-header__submenu-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(22rem, max-content));
-  gap: 2.4rem 8rem;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, max-content));
+  gap: 2.2rem 9rem;
   align-items: start;
   justify-content: start;
   max-width: var(--page-width);
@@ -181,7 +174,7 @@
 
 .pps-header__submenu-link {
   display: inline-block;
-  font-size: 1.55rem;
+  font-size: 1.6rem;
   line-height: 1.2;
   font-weight: 500;
   margin-bottom: 0.4rem;
@@ -198,24 +191,21 @@
 
 .pps-header__submenu-child-link {
   display: inline-block;
-  font-size: 1.35rem;
+  font-size: 1.6rem;
   line-height: 1.3;
-  opacity: 0.82;
+  opacity: 0.94;
 }
 
 .pps-header__submenu-link:hover,
 .pps-header__submenu-link.is-active,
 .pps-header__submenu-child-link:hover,
 .pps-header__submenu-child-link.is-active {
-  opacity: 0.62;
+  opacity: 0.68;
 }
 
 .pps-header__menu-item--has-children:hover .pps-header__submenu-wrap,
 .pps-header__menu-item--has-children:focus-within .pps-header__submenu-wrap {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateY(0);
+  display: block;
 }
 
 .pps-header__menu-item--has-children:hover .pps-header__menu-caret svg,
@@ -307,7 +297,7 @@
 
   .pps-header__menu-item--has-children:hover .pps-header__submenu-wrap,
   .pps-header__menu-item--has-children:focus-within .pps-header__submenu-wrap {
-    transform: translateY(0);
+    display: block;
   }
 
   .pps-header__actions {
@@ -350,10 +340,6 @@
     position: static;
     width: 100%;
     padding-top: 0.8rem;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: none;
     display: none;
   }
 
