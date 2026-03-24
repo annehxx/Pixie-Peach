@@ -1,0 +1,275 @@
+{{ 'section-editorial-product-grid.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign product_limit = section.settings.products_to_show
+  assign selected_collection = section.settings.collection
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --editorial-grid-columns-desktop: {{ section.settings.columns_desktop }};
+    --editorial-grid-columns-mobile: {{ section.settings.columns_mobile }};
+    --editorial-grid-gap-desktop: {{ section.settings.grid_gap_desktop }}px;
+    --editorial-grid-gap-mobile: {{ section.settings.grid_gap_mobile }}px;
+    --editorial-grid-radius: {{ section.settings.card_radius }}px;
+    --editorial-grid-title-size: {{ section.settings.title_size }}px;
+    --editorial-grid-price-size: {{ section.settings.price_size }}px;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="editorial-product-grid-section section-{{ section.id }}-padding">
+  <div class="page-width">
+    {%- if section.settings.show_toolbar -%}
+      <div class="editorial-product-grid__toolbar">
+        <div class="editorial-product-grid__toolbar-left">
+          {%- if section.settings.filter_label_1 != blank -%}
+            <span class="editorial-product-grid__toolbar-pill">{{ section.settings.filter_label_1 }}</span>
+          {%- endif -%}
+          {%- if section.settings.filter_label_2 != blank -%}
+            <span class="editorial-product-grid__toolbar-pill">{{ section.settings.filter_label_2 }}</span>
+          {%- endif -%}
+        </div>
+
+        <div class="editorial-product-grid__toolbar-right">
+          {%- if selected_collection != blank -%}
+            <span class="editorial-product-grid__toolbar-meta">
+              {{ selected_collection.products_count }} {{ section.settings.items_label }}
+            </span>
+          {%- endif -%}
+          {%- if section.settings.sort_label != blank -%}
+            <span class="editorial-product-grid__toolbar-meta">{{ section.settings.sort_label }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <div class="editorial-product-grid__header">
+        <h2 class="editorial-product-grid__heading">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    {%- if selected_collection != blank and selected_collection.products.size > 0 -%}
+      <div class="editorial-product-grid">
+        {%- for product in selected_collection.products limit: product_limit -%}
+          <article class="editorial-product-card">
+            <a href="{{ product.url }}" class="editorial-product-card__media-link">
+              <div class="editorial-product-card__media">
+                {%- if product.featured_media != blank -%}
+                  {{
+                    product.featured_media
+                    | image_url: width: 900
+                    | image_tag:
+                      class: 'editorial-product-card__image',
+                      widths: '320, 480, 640, 900',
+                      sizes: '(min-width: 1200px) 16vw, (min-width: 750px) 24vw, 48vw',
+                      alt: product.featured_media.alt | default: product.title,
+                      loading: 'lazy'
+                  }}
+                {%- else -%}
+                  {{ 'product-apparel-2' | placeholder_svg_tag: 'editorial-product-card__image editorial-product-card__image--placeholder' }}
+                {%- endif -%}
+              </div>
+            </a>
+
+            <div class="editorial-product-card__info">
+              <h3 class="editorial-product-card__title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              <div class="editorial-product-card__price">
+                {{ product.price | money_with_currency }}
+              </div>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="editorial-product-grid__empty">
+        Bitte wähle eine Collection mit Produkten aus.
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial Product Grid",
+  "tag": "section",
+  "class": "section-editorial-product-grid",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_toolbar",
+      "label": "Toolbar anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "filter_label_1",
+      "label": "Toolbar Label links 1",
+      "default": "Availability"
+    },
+    {
+      "type": "text",
+      "id": "filter_label_2",
+      "label": "Toolbar Label links 2",
+      "default": "Price"
+    },
+    {
+      "type": "text",
+      "id": "items_label",
+      "label": "Artikel-Bezeichnung",
+      "default": "items"
+    },
+    {
+      "type": "text",
+      "id": "sort_label",
+      "label": "Toolbar Label rechts",
+      "default": "Sort"
+    },
+    {
+      "type": "header",
+      "content": "Grid"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "label": "Produkte anzeigen",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Spalten Desktop",
+      "default": 6
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Spalten Mobile",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_desktop",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Abstand Desktop",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "min": 8,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Abstand Mobile",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "label": "Bildradius",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Typografie"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Titelgröße",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Preisgröße",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Abstände"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding oben",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding unten",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial Product Grid"
+    }
+  ]
+}
+{% endschema %}
