@@ -46,7 +46,7 @@
       "name": "Collection Showcase",
       "settings": {
         "title": "Heated All The Time.",
-        "collection": "favorites",
+        "collection": "heated-all-the-time",
         "link_label": "Shop Heated Collection",
         "products_to_show": 4,
         "columns_desktop": 4,
