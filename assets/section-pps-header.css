@@ -1,6 +1,8 @@
 .pps-header-shell {
   background: var(--pps-header-bg);
   border-bottom: 1px solid var(--pps-header-border);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1.2rem 3rem rgb(17 18 24 / 0.04);
 }
 
 .pps-header {
@@ -8,7 +10,7 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 3rem;
-  min-height: 11rem;
+  min-height: 9.6rem;
   padding: var(--pps-header-padding-y) var(--pps-header-padding-x);
   color: var(--pps-header-text);
 }
@@ -26,6 +28,17 @@
   align-items: center;
 }
 
+.pps-header__logo-link {
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.pps-header__logo-link:hover {
+  opacity: 0.92;
+  transform: translateY(-0.1rem);
+}
+
 .pps-header__logo-image {
   width: var(--pps-header-logo-width);
   max-width: 100%;
@@ -34,9 +47,10 @@
 }
 
 .pps-header__logo-text {
-  font-size: 2.2rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .pps-header__nav {
@@ -67,8 +81,8 @@
   gap: 0.7rem;
   font-size: 1.55rem;
   line-height: 1;
-  letter-spacing: 0.01em;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s ease, color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
 .pps-header__menu-caret {
@@ -87,7 +101,32 @@
 .pps-header__localization:hover,
 .pps-header__icon-link:hover,
 .pps-header__menu-link.is-active {
-  opacity: 0.7;
+  opacity: 0.78;
+}
+
+.pps-header__menu-link {
+  position: relative;
+  padding: 0.9rem 0;
+}
+
+.pps-header__menu-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.2rem;
+  height: 0.1rem;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+.pps-header__menu-link:hover::after,
+.pps-header__menu-link.is-active::after,
+.pps-header__menu-item--has-children:hover > .pps-header__menu-link::after,
+.pps-header__menu-item--has-children:focus-within > .pps-header__menu-link::after {
+  transform: scaleX(1);
 }
 
 .pps-header__submenu-wrap {
@@ -107,9 +146,10 @@
 .pps-header__submenu {
   margin: 0;
   padding: 1.8rem 2rem;
-  border: 1px solid var(--pps-header-border);
-  background: var(--pps-header-bg);
-  box-shadow: 0 1.4rem 3rem rgb(0 0 0 / 0.08);
+  border: 1px solid rgb(0 0 0 / 0.08);
+  border-radius: 1.8rem;
+  background: color-mix(in srgb, var(--pps-header-bg) 94%, white 6%);
+  box-shadow: 0 1.8rem 4rem rgb(0 0 0 / 0.09);
 }
 
 .pps-header__submenu-item + .pps-header__submenu-item {
@@ -125,8 +165,9 @@
 
 .pps-header__submenu-link {
   display: inline-block;
-  font-size: 1.7rem;
+  font-size: 1.55rem;
   line-height: 1.2;
+  font-weight: 500;
 }
 
 .pps-header__submenu-children {
@@ -140,7 +181,7 @@
 
 .pps-header__submenu-child-link {
   display: inline-block;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   line-height: 1.2;
   opacity: 0.74;
 }
@@ -169,11 +210,15 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 1.8rem;
+  gap: 1rem;
 }
 
 .pps-header__localization {
   white-space: nowrap;
+  padding: 1rem 1.4rem;
+  border: 1px solid rgb(0 0 0 / 0.08);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.42);
 }
 
 .pps-header__caret,
@@ -191,6 +236,20 @@
 
 .pps-header__cart-link {
   position: relative;
+}
+
+.pps-header__icon-link {
+  justify-content: center;
+  width: 4.2rem;
+  height: 4.2rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+}
+
+.pps-header__icon-link:hover {
+  background: rgb(255 255 255 / 0.44);
+  border-color: rgb(0 0 0 / 0.06);
+  transform: translateY(-0.1rem);
 }
 
 .pps-header__cart-link .pps-header__icon {
@@ -248,6 +307,7 @@
 @media screen and (max-width: 749px) {
   .pps-header {
     padding-inline: 1.8rem;
+    min-height: auto;
   }
 
   .pps-header__menu-link,
@@ -258,6 +318,15 @@
 
   .pps-header__menu {
     gap: 1.4rem 1.8rem;
+  }
+
+  .pps-header__localization {
+    padding: 0.8rem 1.2rem;
+  }
+
+  .pps-header__icon-link {
+    width: 3.8rem;
+    height: 3.8rem;
   }
 
   .pps-header__cart-link .pps-header__icon {
@@ -284,6 +353,7 @@
   .pps-header__submenu {
     padding: 1.4rem 1.6rem;
     text-align: left;
+    border-radius: 1.4rem;
   }
 
   .pps-header__submenu-link {
