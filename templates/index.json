@@ -226,7 +226,7 @@
         "heading": "Can I Ask You a Question...?",
         "open_first_item": false,
         "button_label": "About Us",
-        "button_link": "",
+        "button_link": "shopify://pages/about-us",
         "max_width": 1560,
         "heading_size_desktop": 58,
         "heading_size_mobile": 38,
