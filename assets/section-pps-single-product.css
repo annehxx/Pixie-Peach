@@ -4,7 +4,7 @@
 
 .pps-single {
   color: var(--pps-single-text);
-  padding-top: var(--pps-single-padding-top);
+  padding-top: calc(var(--pps-single-padding-top) + 3.2rem);
   padding-bottom: var(--pps-single-padding-bottom);
 }
 
@@ -18,12 +18,14 @@
 .pps-single__media-frame {
   display: grid;
   gap: 1.6rem;
+  padding-top: 1.4rem;
 }
 
 .pps-single__media-stage {
   position: relative;
   overflow: hidden;
   aspect-ratio: 0.9;
+  padding: 2.2rem;
   border: 1px solid var(--pps-single-border);
   border-radius: var(--pps-single-radius);
   background:
@@ -34,7 +36,7 @@
 .pps-single__media-item,
 .pps-single__media-placeholder {
   position: absolute;
-  inset: 0;
+  inset: 2.2rem;
 }
 
 .pps-single__media-item {
@@ -374,12 +376,25 @@
 
 @media screen and (max-width: 749px) {
   .pps-single {
-    padding-top: max(2.8rem, calc(var(--pps-single-padding-top) * 0.72));
+    padding-top: max(4.2rem, calc(var(--pps-single-padding-top) * 0.72 + 1.8rem));
     padding-bottom: max(4rem, calc(var(--pps-single-padding-bottom) * 0.72));
   }
 
   .pps-single__content {
     gap: 1.5rem;
+  }
+
+  .pps-single__media-frame {
+    padding-top: 0;
+  }
+
+  .pps-single__media-stage {
+    padding: 1.6rem;
+  }
+
+  .pps-single__media-item,
+  .pps-single__media-placeholder {
+    inset: 1.6rem;
   }
 
   .pps-single__title {
