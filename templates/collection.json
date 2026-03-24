@@ -11,6 +11,7 @@
   "sections": {
     "banner": {
       "type": "main-collection-banner",
+      "disabled": true,
       "settings": {
         "show_collection_description": true,
         "show_collection_image": false,
@@ -22,6 +23,7 @@
       "settings": {
         "products_per_page": 16,
         "columns_desktop": 4,
+        "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
@@ -32,14 +34,35 @@
         "enable_filtering": true,
         "filter_type": "horizontal",
         "enable_sorting": true,
-        "columns_mobile": "2",
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "editorial_vault_banner_d4BUYy": {
+      "type": "editorial-vault-banner",
+      "name": "Editorial Vault Banner",
+      "settings": {
+        "eyebrow": "NEW DROP",
+        "heading": "Fresh Out the Vault",
+        "subtext": "<p>Editoriales Banner mit starker Bildwirkung.</p>",
+        "button_label": "",
+        "button_link": "",
+        "content_position": "bottom-left",
+        "height_desktop": 560,
+        "height_mobile": 360,
+        "content_max_width": 700,
+        "content_padding_horizontal": 32,
+        "content_padding_vertical": 28,
+        "overlay_opacity": 35,
+        "heading_size_desktop": 64,
+        "heading_size_mobile": 40,
+        "text_color": "#ffffff"
       }
     }
   },
   "order": [
     "banner",
+    "editorial_vault_banner_d4BUYy",
     "product-grid"
   ]
 }
