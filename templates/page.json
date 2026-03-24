@@ -11,13 +11,41 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "pps_about_us_fntJx8": {
+      "type": "pps-about-us",
+      "name": "PPS About Us",
+      "settings": {
+        "eyebrow": "About Pixie Peach",
+        "heading": "Cute, playful pieces with main character energy.",
+        "text_1": "<p>Pixie Peach is all about dreamy, feminine style with a little sparkle and a little chaos. We create pieces that feel flirty, nostalgic, and unapologetically fun.</p>",
+        "text_2": "<p>From sweet statement graphics to soft coquette-inspired details, everything is designed to feel wearable, expressive, and very online in the best way.</p>",
+        "highlight": "Made for pink lovers, soft hearts, and girls who romanticize everything.",
+        "button_label": "Shop the vibe",
+        "button_link": "",
+        "image": "shopify://shop_images/20260322183104-1f1261d4-8dd5-6b34-90eb-52d6ef9793fa.png",
+        "card_caption": "Soft girl energy, bottled into a brand.",
+        "column_gap": 72,
+        "panel_radius": 22,
+        "padding_top": 64,
+        "padding_bottom": 72,
+        "background_color": "#fff8fc",
+        "heading_color": "#2f2137",
+        "text_color": "#6d5a71",
+        "accent_color": "#e57abb",
+        "card_background": "#f7d4e8",
+        "button_background": "#e8b4d0",
+        "button_text_color": "#ffffff"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "pps_about_us_fntJx8"
   ]
 }
