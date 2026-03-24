@@ -46,7 +46,7 @@
       {%- if section.settings.menu != blank -%}
         <ul class="pps-header__menu list-unstyled" role="list">
           {%- for link in linklists[section.settings.menu].links -%}
-            <li class="pps-header__menu-item">
+            <li class="pps-header__menu-item{% if link.links != blank %} pps-header__menu-item--has-children{% endif %}">
               <a
                 href="{{ link.url }}"
                 class="pps-header__menu-link{% if link.current %} is-active{% endif %}"
@@ -54,8 +54,51 @@
                   aria-current="page"
                 {% endif %}
               >
-                {{- link.title -}}
+                <span>{{- link.title -}}</span>
+                {%- if link.links != blank -%}
+                  <span class="pps-header__menu-caret" aria-hidden="true">
+                    {{ 'icon-caret.svg' | inline_asset_content }}
+                  </span>
+                {%- endif -%}
               </a>
+
+              {%- if link.links != blank -%}
+                <div class="pps-header__submenu-wrap">
+                  <ul class="pps-header__submenu list-unstyled" role="list">
+                    {%- for childlink in link.links -%}
+                      <li class="pps-header__submenu-item">
+                        <a
+                          href="{{ childlink.url }}"
+                          class="pps-header__submenu-link{% if childlink.current %} is-active{% endif %}"
+                          {% if childlink.current %}
+                            aria-current="page"
+                          {% endif %}
+                        >
+                          {{- childlink.title -}}
+                        </a>
+
+                        {%- if childlink.links != blank -%}
+                          <ul class="pps-header__submenu-children list-unstyled" role="list">
+                            {%- for grandchildlink in childlink.links -%}
+                              <li>
+                                <a
+                                  href="{{ grandchildlink.url }}"
+                                  class="pps-header__submenu-child-link{% if grandchildlink.current %} is-active{% endif %}"
+                                  {% if grandchildlink.current %}
+                                    aria-current="page"
+                                  {% endif %}
+                                >
+                                  {{- grandchildlink.title -}}
+                                </a>
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
             </li>
           {%- endfor -%}
         </ul>
