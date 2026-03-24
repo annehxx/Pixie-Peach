@@ -140,7 +140,7 @@
               {{ 'icon-cart.svg' | inline_asset_content }}
             {%- endif -%}
           </span>
-          {%- if cart != empty and section.settings.show_cart_count -%}
+          {%- if section.settings.show_cart_count -%}
             <span class="pps-header__cart-count">{{ cart.item_count }}</span>
           {%- endif -%}
         </a>
@@ -270,7 +270,7 @@
       "type": "checkbox",
       "id": "show_cart_count",
       "label": "Show cart count",
-      "default": false
+      "default": true
     },
     {
       "type": "checkbox",
