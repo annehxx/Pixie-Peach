@@ -5,7 +5,7 @@
 .pps-single {
   color: var(--pps-single-text);
   padding-top: calc(var(--pps-single-padding-top) + 3.2rem);
-  padding-bottom: var(--pps-single-padding-bottom);
+  padding-bottom: calc(var(--pps-single-padding-bottom) + 3.2rem);
 }
 
 .pps-single__inner {
@@ -377,7 +377,7 @@
 @media screen and (max-width: 749px) {
   .pps-single {
     padding-top: max(4.2rem, calc(var(--pps-single-padding-top) * 0.72 + 1.8rem));
-    padding-bottom: max(4rem, calc(var(--pps-single-padding-bottom) * 0.72));
+    padding-bottom: max(5.4rem, calc(var(--pps-single-padding-bottom) * 0.72 + 1.8rem));
   }
 
   .pps-single__content {
