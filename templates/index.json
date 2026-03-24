@@ -30,6 +30,17 @@
         "button_text_color": "#ffffff"
       }
     },
+    "animated_pink_banner_rjaB4w": {
+      "type": "animated-pink-banner",
+      "name": "t:sections.animated_pink_banner.presets.name",
+      "settings": {
+        "banner_text": "For the chronically online",
+        "banner_color": "#E8B4D0",
+        "text_color": "#FFFFFF",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "pps_featured_favorites_d7GkiV": {
       "type": "pps-featured-favorites",
       "name": "PPS Featured Favorites",
@@ -78,6 +89,7 @@
   },
   "order": [
     "pps_hero_V8CwW8",
+    "animated_pink_banner_rjaB4w",
     "pps_featured_favorites_d7GkiV",
     "pps_story_creJDi"
   ]
