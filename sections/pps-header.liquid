@@ -64,39 +64,41 @@
 
               {%- if link.links != blank -%}
                 <div class="pps-header__submenu-wrap">
-                  <ul class="pps-header__submenu list-unstyled" role="list">
-                    {%- for childlink in link.links -%}
-                      <li class="pps-header__submenu-item">
-                        <a
-                          href="{{ childlink.url }}"
-                          class="pps-header__submenu-link{% if childlink.current %} is-active{% endif %}"
-                          {% if childlink.current %}
-                            aria-current="page"
-                          {% endif %}
-                        >
-                          {{- childlink.title -}}
-                        </a>
+                  <div class="pps-header__submenu page-width">
+                    <div class="pps-header__submenu-grid">
+                      {%- for childlink in link.links -%}
+                        <div class="pps-header__submenu-column">
+                          <a
+                            href="{{ childlink.url }}"
+                            class="pps-header__submenu-link{% if childlink.current %} is-active{% endif %}"
+                            {% if childlink.current %}
+                              aria-current="page"
+                            {% endif %}
+                          >
+                            {{- childlink.title -}}
+                          </a>
 
-                        {%- if childlink.links != blank -%}
-                          <ul class="pps-header__submenu-children list-unstyled" role="list">
-                            {%- for grandchildlink in childlink.links -%}
-                              <li>
-                                <a
-                                  href="{{ grandchildlink.url }}"
-                                  class="pps-header__submenu-child-link{% if grandchildlink.current %} is-active{% endif %}"
-                                  {% if grandchildlink.current %}
-                                    aria-current="page"
-                                  {% endif %}
-                                >
-                                  {{- grandchildlink.title -}}
-                                </a>
-                              </li>
-                            {%- endfor -%}
-                          </ul>
-                        {%- endif -%}
-                      </li>
-                    {%- endfor -%}
-                  </ul>
+                          {%- if childlink.links != blank -%}
+                            <ul class="pps-header__submenu-children list-unstyled" role="list">
+                              {%- for grandchildlink in childlink.links -%}
+                                <li>
+                                  <a
+                                    href="{{ grandchildlink.url }}"
+                                    class="pps-header__submenu-child-link{% if grandchildlink.current %} is-active{% endif %}"
+                                    {% if grandchildlink.current %}
+                                      aria-current="page"
+                                    {% endif %}
+                                  >
+                                    {{- grandchildlink.title -}}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                  </div>
                 </div>
               {%- endif -%}
             </li>
