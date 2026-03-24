@@ -78,6 +78,7 @@
           "type": "closet_card",
           "settings": {
             "collection": "",
+            "image": "shopify://shop_images/2843024768130393527_2048.jpg",
             "title": "Pixie Favorites",
             "link": "",
             "rotation": "left-sm"
@@ -87,6 +88,7 @@
           "type": "closet_card",
           "settings": {
             "collection": "",
+            "image": "shopify://shop_images/14347236083989495720_2048.jpg",
             "title": "Sweet & Sparkly",
             "link": "",
             "rotation": "right-sm"
@@ -96,6 +98,7 @@
           "type": "closet_card",
           "settings": {
             "collection": "",
+            "image": "shopify://shop_images/6.png",
             "title": "Peachy Prints",
             "link": "",
             "rotation": "left-lg"
@@ -105,6 +108,7 @@
           "type": "closet_card",
           "settings": {
             "collection": "",
+            "image": "shopify://shop_images/20260311134859-1f11d510-e031-63d4-b82c-16476a54fd9b.png",
             "title": "Main Character",
             "link": "",
             "rotation": "none"
