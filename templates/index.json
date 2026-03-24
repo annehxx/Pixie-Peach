@@ -85,12 +85,35 @@
         "button_background": "#7b421f",
         "button_text_color": "#f4d36f"
       }
+    },
+    "collection_showcase_BtECtq": {
+      "type": "collection-showcase",
+      "name": "t:sections.collection_showcase.presets.name",
+      "settings": {
+        "title": "Heated All The Time.",
+        "collection": "",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "1",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
+        "quick_add": "standard",
+        "color_scheme": "",
+        "show_view_all": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "pps_hero_V8CwW8",
     "animated_pink_banner_yhfLVk",
     "pps_featured_favorites_d7GkiV",
-    "pps_story_creJDi"
+    "pps_story_creJDi",
+    "collection_showcase_BtECtq"
   ]
 }
