@@ -25,7 +25,6 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 0.9;
-  padding: 2.2rem;
   border: 1px solid var(--pps-single-border);
   border-radius: var(--pps-single-radius);
   background:
@@ -36,7 +35,7 @@
 .pps-single__media-item,
 .pps-single__media-placeholder {
   position: absolute;
-  inset: 2.2rem;
+  inset: 0;
 }
 
 .pps-single__media-item {
@@ -389,12 +388,12 @@
   }
 
   .pps-single__media-stage {
-    padding: 1.6rem;
+    padding: 0;
   }
 
   .pps-single__media-item,
   .pps-single__media-placeholder {
-    inset: 1.6rem;
+    inset: 0;
   }
 
   .pps-single__title {
