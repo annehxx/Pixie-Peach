@@ -13,6 +13,7 @@
   "sections": {
     "header": {
       "type": "header",
+      "disabled": true,
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "center",
@@ -29,9 +30,33 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "pps_header_6jLdpg": {
+      "type": "pps-header",
+      "name": "PPS Header",
+      "settings": {
+        "logo_link": "",
+        "logo_width": 112,
+        "menu": "main-menu",
+        "menu_label": "Main navigation",
+        "show_localization": true,
+        "country_label": "Germany",
+        "currency_label": "EUR",
+        "show_search": true,
+        "show_account": true,
+        "show_cart": true,
+        "show_cart_count": false,
+        "enable_sticky": false,
+        "background_color": "#ffffff",
+        "text_color": "#6d5650",
+        "border_color": "#d8d0cd",
+        "padding_vertical": 22,
+        "padding_horizontal": 24
+      }
     }
   },
   "order": [
-    "header"
+    "header",
+    "pps_header_6jLdpg"
   ]
 }
