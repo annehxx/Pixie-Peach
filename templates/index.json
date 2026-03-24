@@ -46,7 +46,7 @@
       "name": "Collection Showcase",
       "settings": {
         "title": "Heated All The Time.",
-        "collection": "favorites",
+        "collection": "heated-all-the-time",
         "link_label": "Shop Heated Collection",
         "products_to_show": 4,
         "columns_desktop": 4,
@@ -78,7 +78,7 @@
           "type": "closet_card",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/11966568732083045184_2048.jpg",
+            "image": "shopify://shop_images/2843024768130393527_2048.jpg",
             "title": "Pixie Favorites",
             "link": "",
             "rotation": "left-sm"
@@ -88,7 +88,7 @@
           "type": "closet_card",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/2766132653928289182_2048.jpg",
+            "image": "shopify://shop_images/14347236083989495720_2048.jpg",
             "title": "Sweet & Sparkly",
             "link": "",
             "rotation": "right-sm"
@@ -98,7 +98,7 @@
           "type": "closet_card",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/10047203034366454412_2048.jpg",
+            "image": "shopify://shop_images/6.png",
             "title": "Peachy Prints",
             "link": "",
             "rotation": "left-lg"
@@ -108,7 +108,7 @@
           "type": "closet_card",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/7267512911166809844_2048.jpg",
+            "image": "shopify://shop_images/20260311134859-1f11d510-e031-63d4-b82c-16476a54fd9b.png",
             "title": "Main Character",
             "link": "",
             "rotation": "none"
@@ -163,8 +163,8 @@
       "name": "PPS Featured Favorites",
       "settings": {
         "collection": "favorites",
-        "heading": "Shop our Favourites",
-        "subtext": "<p>Cherry-picked favourites for the chronically online.</p>",
+        "heading": "Shop our Coquette Animals",
+        "subtext": "<p>The cutest fur-babys around ♥</p>",
         "link_label": "Shop Collection",
         "products_to_show": 5,
         "button_label_default": "Add to cart",
