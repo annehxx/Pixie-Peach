@@ -1,0 +1,72 @@
+{
+  "sections": {
+    "main": {
+      "type": "pps-single-product",
+      "blocks": {
+        "shipping": {
+          "type": "detail",
+          "settings": {
+            "heading": "Shipping & returns",
+            "content": "<p>Orders are packed with care and usually ship within 2 to 4 business days. Returns are accepted within 14 days of delivery on unworn items.</p>"
+          }
+        },
+        "details": {
+          "type": "detail",
+          "settings": {
+            "heading": "Product details",
+            "content": "<p>Add fit, fabric, print and care details here so every product page feels complete.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "shipping",
+        "details"
+      ],
+      "settings": {
+        "show_vendor": true,
+        "show_description": true,
+        "button_label": "Add to cart",
+        "trust_text_1": "Soft-girl approved",
+        "trust_text_2": "Made to be noticed",
+        "trust_text_3": "Cute with everything",
+        "column_gap": 64,
+        "panel_radius": 26,
+        "padding_top": 48,
+        "padding_bottom": 72,
+        "background_color": "#fff9fd",
+        "heading_color": "#191516",
+        "text_color": "#5f4d57",
+        "accent_color": "#ff5fa2",
+        "surface_color": "#ffffff",
+        "border_color": "#f1c7dc",
+        "button_background": "#ff5fa2",
+        "button_text_color": "#ffffff"
+      }
+    },
+    "featured_favorites": {
+      "type": "pps-featured-favorites",
+      "settings": {
+        "heading": "You may also like",
+        "subheading": "",
+        "link_label": "Shop all",
+        "collection": "",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "card_radius": 24,
+        "image_ratio": "portrait",
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "background_color": "#ffffff",
+        "heading_color": "#191516",
+        "text_color": "#5f4d57",
+        "accent_color": "#ff5fa2",
+        "card_background": "#fff6fb"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "featured_favorites"
+  ]
+}

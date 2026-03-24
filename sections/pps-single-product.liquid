@@ -1,0 +1,528 @@
+{{ 'section-pps-single-product.css' | asset_url | stylesheet_tag }}
+{{ 'product-form.js' | asset_url | script_tag }}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign primary_media = current_variant.featured_media | default: product.featured_media
+  assign form_id = 'PpsSingleProductForm-' | append: section.id
+%}
+
+<section
+  class="pps-single-product"
+  style="
+    --pps-single-bg: {{ section.settings.background_color }};
+    --pps-single-heading: {{ section.settings.heading_color }};
+    --pps-single-text: {{ section.settings.text_color }};
+    --pps-single-accent: {{ section.settings.accent_color }};
+    --pps-single-surface: {{ section.settings.surface_color }};
+    --pps-single-border: {{ section.settings.border_color }};
+    --pps-single-button-bg: {{ section.settings.button_background }};
+    --pps-single-button-text: {{ section.settings.button_text_color }};
+    --pps-single-padding-top: {{ section.settings.padding_top }}px;
+    --pps-single-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --pps-single-gap: {{ section.settings.column_gap }}px;
+    --pps-single-radius: {{ section.settings.panel_radius }}px;
+  "
+>
+  <pps-product-section
+    class="pps-single"
+    data-section-id="{{ section.id }}"
+  >
+    <div class="pps-single__inner page-width">
+      <div class="pps-single__media-frame">
+        <div class="pps-single__media-stage">
+          {% if product.media.size > 0 %}
+            {% for media in product.media %}
+              <div
+                class="pps-single__media-item{% if primary_media and media.id == primary_media.id %} is-active{% elsif primary_media == blank and forloop.first %} is-active{% endif %}"
+                data-media-id="{{ media.id }}"
+              >
+                {{
+                  media
+                  | image_url: width: 1400
+                  | image_tag:
+                    class: 'pps-single__media-image',
+                    loading: 'lazy',
+                    widths: '480, 720, 960, 1200, 1400',
+                    sizes: '(min-width: 990px) 50vw, 100vw',
+                    alt: media.alt | escape
+                }}
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="pps-single__media-placeholder">
+              {{ 'product-1' | placeholder_svg_tag: 'pps-single__placeholder-svg' }}
+            </div>
+          {% endif %}
+        </div>
+
+        {% if product.media.size > 1 %}
+          <div class="pps-single__thumbs">
+            {% for media in product.media %}
+              <button
+                class="pps-single__thumb{% if primary_media and media.id == primary_media.id %} is-active{% elsif primary_media == blank and forloop.first %} is-active{% endif %}"
+                type="button"
+                data-thumb-id="{{ media.id }}"
+                aria-label="{{ 'products.product.media.open_media' | t: index: forloop.index }}"
+              >
+                {{
+                  media
+                  | image_url: width: 300
+                  | image_tag:
+                    class: 'pps-single__thumb-image',
+                    loading: 'lazy',
+                    widths: '120, 180, 240, 300',
+                    sizes: '96px',
+                    alt: media.alt | escape
+                }}
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="pps-single__content">
+        {% if section.settings.show_vendor and product.vendor != blank %}
+          <p class="pps-single__eyebrow">{{ product.vendor }}</p>
+        {% endif %}
+
+        <h1 class="pps-single__title">{{ product.title }}</h1>
+
+        <div class="pps-single__price-wrap">
+          <span class="pps-single__price" data-price>{{ current_variant.price | money_with_currency }}</span>
+          <span
+            class="pps-single__compare-price{% unless current_variant.compare_at_price > current_variant.price %} hidden{% endunless %}"
+            data-compare-price
+          >
+            {% if current_variant.compare_at_price > current_variant.price %}
+              {{ current_variant.compare_at_price | money_with_currency }}
+            {% endif %}
+          </span>
+        </div>
+
+        {% if section.settings.show_description and product.description != blank %}
+          <div class="pps-single__description rte">
+            {{ product.description }}
+          </div>
+        {% endif %}
+
+        <div class="pps-single__trust-pills">
+          {% if section.settings.trust_text_1 != blank %}
+            <span class="pps-single__trust-pill">{{ section.settings.trust_text_1 }}</span>
+          {% endif %}
+          {% if section.settings.trust_text_2 != blank %}
+            <span class="pps-single__trust-pill">{{ section.settings.trust_text_2 }}</span>
+          {% endif %}
+          {% if section.settings.trust_text_3 != blank %}
+            <span class="pps-single__trust-pill">{{ section.settings.trust_text_3 }}</span>
+          {% endif %}
+        </div>
+
+        <product-form class="pps-single__form-shell" data-hide-errors="false">
+          <div
+            class="pps-single__form"
+            data-variants='[
+              {% for variant in product.variants %}
+                {
+                  "id": {{ variant.id }},
+                  "available": {{ variant.available | json }},
+                  "options": {{ variant.options | json }},
+                  "price": {{ variant.price | money_with_currency | json }},
+                  "price_raw": {{ variant.price | json }},
+                  "compare_at_price": {{ variant.compare_at_price | money_with_currency | json }},
+                  "compare_at_price_raw": {{ variant.compare_at_price | default: 0 | json }},
+                  "featured_media_id": {{ variant.featured_media.id | default: 0 | json }},
+                  "url": {{ variant.url | json }}
+                }{% unless forloop.last %},{% endunless %}
+              {% endfor %}
+            ]'
+          >
+            {% form 'product', product, id: form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' %}
+              <input
+                class="pps-single__variant-id"
+                type="hidden"
+                name="id"
+                value="{{ current_variant.id }}"
+                {% unless current_variant.available %}
+                  disabled
+                {% endunless %}
+              >
+
+              {% if product.has_only_default_variant == false %}
+                <div class="pps-single__options">
+                  {% for option in product.options_with_values %}
+                    <fieldset class="pps-single__option-group">
+                      <legend class="pps-single__option-label">{{ option.name }}</legend>
+                      <div class="pps-single__option-values">
+                        {% for value in option.values %}
+                          {% assign option_id = section.id | append: '-' | append: option.position | append: '-' | append: forloop.index0 %}
+                          <input
+                            id="Option-{{ option_id }}"
+                            class="pps-single__option-input"
+                            type="radio"
+                            name="options[{{ option.name | escape }}]"
+                            value="{{ value | escape }}"
+                            data-option-index="{{ option.position | minus: 1 }}"
+                            {% if option.selected_value == value %}
+                              checked
+                            {% endif %}
+                          >
+                          <label class="pps-single__option-chip" for="Option-{{ option_id }}">{{ value }}</label>
+                        {% endfor %}
+                      </div>
+                    </fieldset>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              <div class="pps-single__purchase-row">
+                <label class="pps-single__quantity" for="Quantity-{{ section.id }}">
+                  <span class="visually-hidden">{{ 'products.product.quantity.label' | t }}</span>
+                  <input
+                    id="Quantity-{{ section.id }}"
+                    class="pps-single__quantity-input"
+                    type="number"
+                    name="quantity"
+                    min="1"
+                    value="1"
+                  >
+                </label>
+
+                <button
+                  id="ProductSubmitButton-{{ section.id }}"
+                  type="submit"
+                  name="add"
+                  class="pps-single__submit"
+                  {% unless current_variant.available %}
+                    disabled
+                  {% endunless %}
+                >
+                  <span>
+                    {% if current_variant.available %}
+                      {{ section.settings.button_label }}
+                    {% else %}
+                      {{ 'products.product.sold_out' | t }}
+                    {% endif %}
+                  </span>
+                  <div class="loading__spinner hidden">
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      class="spinner"
+                      viewBox="0 0 66 66"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                    </svg>
+                  </div>
+                </button>
+              </div>
+
+              <div class="product-form__error-message-wrapper" role="alert" hidden>
+                <span class="svg-wrapper">
+                  {{- 'icon-error.svg' | inline_asset_content -}}
+                </span>
+                <span class="product-form__error-message"></span>
+              </div>
+            {% endform %}
+          </div>
+        </product-form>
+
+        {% if section.blocks.size > 0 %}
+          <div class="pps-single__accordions">
+            {% for block in section.blocks %}
+              {% if block.type == 'detail' %}
+                <details class="pps-single__accordion" {{ block.shopify_attributes }}>
+                  <summary class="pps-single__accordion-summary">
+                    <span class="pps-single__accordion-title">{{ block.settings.heading }}</span>
+                    <span class="pps-single__accordion-toggle">+</span>
+                  </summary>
+                  <div class="pps-single__accordion-content rte">
+                    {{ block.settings.content }}
+                  </div>
+                </details>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </pps-product-section>
+
+  <script type="application/json" id="PpsSingleProductData-{{ section.id }}">
+    {{ product.variants | json }}
+  </script>
+
+  <script>
+    (() => {
+      if (customElements.get('pps-product-section')) return;
+
+      class PpsProductSection extends HTMLElement {
+        connectedCallback() {
+          this.formShell = this.querySelector('.pps-single__form');
+          if (!this.formShell) return;
+
+          this.variantInput = this.querySelector('.pps-single__variant-id');
+          this.priceEl = this.querySelector('[data-price]');
+          this.comparePriceEl = this.querySelector('[data-compare-price]');
+          this.submitButton = this.querySelector('.pps-single__submit');
+          this.submitLabel = this.submitButton ? this.submitButton.querySelector('span') : null;
+          this.optionInputs = Array.from(this.querySelectorAll('.pps-single__option-input'));
+          this.thumbButtons = Array.from(this.querySelectorAll('.pps-single__thumb'));
+          this.mediaItems = Array.from(this.querySelectorAll('.pps-single__media-item'));
+
+          try {
+            this.variantCards = JSON.parse(this.formShell.dataset.variants || '[]');
+          } catch (error) {
+            this.variantCards = [];
+          }
+
+          this.optionInputs.forEach((input) => {
+            input.addEventListener('change', () => this.onVariantChange());
+          });
+
+          this.thumbButtons.forEach((button) => {
+            button.addEventListener('click', () => this.setActiveMedia(Number(button.dataset.thumbId)));
+          });
+
+          this.onVariantChange();
+        }
+
+        getSelectedOptions() {
+          const groups = [...new Set(this.optionInputs.map((input) => input.dataset.optionIndex))];
+
+          return groups.map((groupIndex) => {
+            const checked = this.querySelector(`.pps-single__option-input[data-option-index="${groupIndex}"]:checked`);
+            return checked ? checked.value : null;
+          });
+        }
+
+        onVariantChange() {
+          if (!this.variantCards.length) return;
+
+          const selectedOptions = this.getSelectedOptions();
+          const variant = this.variantCards.find((item) => {
+            if (!item.options || item.options.length !== selectedOptions.length) return false;
+            return item.options.every((option, index) => option === selectedOptions[index]);
+          }) || this.variantCards[0];
+
+          if (!variant) return;
+
+          if (this.variantInput) {
+            this.variantInput.value = variant.id;
+            this.variantInput.toggleAttribute('disabled', !variant.available);
+          }
+
+          if (this.priceEl) this.priceEl.textContent = variant.price;
+
+          if (this.comparePriceEl) {
+            const onSale = Number(variant.compare_at_price_raw) > Number(variant.price_raw);
+            this.comparePriceEl.textContent = onSale ? variant.compare_at_price : '';
+            this.comparePriceEl.classList.toggle('hidden', !onSale);
+          }
+
+          if (this.submitButton) {
+            this.submitButton.disabled = !variant.available;
+            if (this.submitLabel) {
+              this.submitLabel.textContent = variant.available
+                ? {{ section.settings.button_label | json }}
+                : {{ 'products.product.sold_out' | t | json }};
+            }
+          }
+
+          if (variant.featured_media_id) this.setActiveMedia(Number(variant.featured_media_id));
+
+          if (variant.url) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('variant', variant.id);
+            window.history.replaceState({}, '', url.toString());
+          }
+        }
+
+        setActiveMedia(mediaId) {
+          this.mediaItems.forEach((item) => {
+            item.classList.toggle('is-active', Number(item.dataset.mediaId) === mediaId);
+          });
+
+          this.thumbButtons.forEach((button) => {
+            button.classList.toggle('is-active', Number(button.dataset.thumbId) === mediaId);
+          });
+        }
+      }
+
+      customElements.define('pps-product-section', PpsProductSection);
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "PPS Single Product",
+  "tag": "section",
+  "class": "section-pps-single-product",
+  "templates": ["product"],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show description",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Add to cart"
+    },
+    {
+      "type": "text",
+      "id": "trust_text_1",
+      "label": "Trust text 1",
+      "default": "Soft-girl approved"
+    },
+    {
+      "type": "text",
+      "id": "trust_text_2",
+      "label": "Trust text 2",
+      "default": "Made to be noticed"
+    },
+    {
+      "type": "text",
+      "id": "trust_text_3",
+      "label": "Trust text 3",
+      "default": "Cute with everything"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "panel_radius",
+      "label": "Panel radius",
+      "min": 8,
+      "max": 36,
+      "step": 2,
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 72
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#fff9fd"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#191516"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#5f4d57"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#ff5fa2"
+    },
+    {
+      "type": "color",
+      "id": "surface_color",
+      "label": "Surface color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#f1c7dc"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#ff5fa2"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "detail",
+      "name": "Detail",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Shipping & returns"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Add shipping, returns, sizing or care details here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PPS Single Product",
+      "blocks": [
+        {
+          "type": "detail",
+          "settings": {
+            "heading": "Shipping & returns",
+            "content": "<p>Add shipping, returns, sizing or care details here.</p>"
+          }
+        },
+        {
+          "type": "detail",
+          "settings": {
+            "heading": "Product details",
+            "content": "<p>Use this space for fabric, fit, print or care instructions.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
