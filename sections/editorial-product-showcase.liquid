@@ -1,0 +1,247 @@
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'section-editorial-product-showcase.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign selected_collection = section.settings.collection
+  assign product_limit = section.settings.products_to_show
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --editorial-showcase-columns-desktop: {{ section.settings.columns_desktop }};
+    --editorial-showcase-columns-mobile: {{ section.settings.columns_mobile }};
+    --editorial-showcase-gap-desktop: {{ section.settings.grid_gap_desktop }}px;
+    --editorial-showcase-gap-mobile: {{ section.settings.grid_gap_mobile }}px;
+    --editorial-showcase-image-radius: {{ section.settings.image_radius }}px;
+    --editorial-showcase-title-size-desktop: {{ section.settings.title_size_desktop }}px;
+    --editorial-showcase-title-size-mobile: {{ section.settings.title_size_mobile }}px;
+    --editorial-showcase-link-color: {{ section.settings.link_color }};
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="editorial-product-showcase section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="editorial-product-showcase__header">
+      <div class="editorial-product-showcase__header-left">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="editorial-product-showcase__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+
+      <div class="editorial-product-showcase__header-right">
+        {%- if section.settings.link_label != blank and selected_collection != blank -%}
+          <a href="{{ selected_collection.url }}" class="editorial-product-showcase__link">
+            {{ section.settings.link_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if selected_collection != blank and selected_collection.products.size > 0 -%}
+      <div class="editorial-product-showcase__grid">
+        {%- for product in selected_collection.products limit: product_limit -%}
+          {%- liquid
+            assign product_image_alt = product.featured_media.alt | default: product.title
+          -%}
+          <article class="editorial-product-showcase__card">
+            <a href="{{ product.url }}" class="editorial-product-showcase__media-link">
+              <div class="editorial-product-showcase__media">
+                {%- if product.featured_media != blank -%}
+                  {{
+                    product.featured_media
+                    | image_url: width: 1100
+                    | image_tag:
+                      class: 'editorial-product-showcase__image',
+                      widths: '360, 533, 720, 940, 1100',
+                      sizes: '(min-width: 1200px) 24vw, (min-width: 750px) 48vw, 100vw',
+                      alt: product_image_alt,
+                      loading: 'lazy'
+                  }}
+                {%- else -%}
+                  {{ 'product-apparel-2' | placeholder_svg_tag: 'editorial-product-showcase__image editorial-product-showcase__image--placeholder' }}
+                {%- endif -%}
+              </div>
+            </a>
+
+            <div class="editorial-product-showcase__content">
+              <h3 class="editorial-product-showcase__title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              {% render 'price', product: product, price_class: 'editorial-product-showcase__price', show_compare_at_price: false %}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="editorial-product-showcase__empty">
+        Select a collection with products to populate this showcase.
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial Product Showcase",
+  "tag": "section",
+  "class": "section-editorial-product-showcase",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Disco All The Time!"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Collection link label",
+      "default": "Shop Disco Collection"
+    },
+    {
+      "type": "header",
+      "content": "Grid"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Columns desktop",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns mobile",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_desktop",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap desktop",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "min": 8,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap mobile",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Image radius",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "min": 32,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size desktop",
+      "default": 62
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 28,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size mobile",
+      "default": 38
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#8f85e7"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial Product Showcase"
+    }
+  ]
+}
+{% endschema %}
