@@ -41,6 +41,36 @@
         "padding_bottom": 0
       }
     },
+    "collection_showcase_mbmMmz": {
+      "type": "collection-showcase",
+      "name": "Collection Showcase",
+      "settings": {
+        "title": "Disco All The Time!",
+        "collection": "favorites",
+        "link_label": "Shop Disco Collection",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "1",
+        "grid_gap_desktop": 12,
+        "grid_gap_mobile": 16,
+        "image_radius": 12,
+        "heading_size_desktop": 62,
+        "heading_size_mobile": 38,
+        "link_color": "#8f85e7",
+        "price_color": "#28222a",
+        "show_view_all": true,
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
+        "quick_add": "none",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "pps_story_creJDi": {
       "type": "pps-story",
       "name": "PPS Story",
@@ -147,6 +177,7 @@
   "order": [
     "pps_hero_V8CwW8",
     "animated_pink_banner_yhfLVk",
+    "collection_showcase_mbmMmz",
     "pps_story_creJDi",
     "pps_featured_favorites_d7GkiV",
     "editorial_faq_yNi3rn"
