@@ -17,7 +17,7 @@
         "heading": "Warning: Outfit May Cause Attention",
         "subtext": "<p>Soft cotton. Cute graphics. Perfect fit.</p>",
         "button_label": "SHOP NOW",
-        "button_link": "",
+        "button_link": "shopify://collections/all",
         "hero_height_desktop": 680,
         "hero_height_mobile": 500,
         "card_max_width": 680,

@@ -22,9 +22,10 @@
       "type": "editorial-vault-banner",
       "name": "Editorial Vault Banner",
       "settings": {
-        "eyebrow": "NEW DROP",
+        "background_image": "shopify://shop_images/ChatGPT_Image_24._Maerz_2026_10_48_06.png",
+        "eyebrow": "All Products",
         "heading": "Fresh Out the Vault",
-        "subtext": "<p>Editoriales Banner mit starker Bildwirkung.</p>",
+        "subtext": "",
         "button_label": "",
         "button_link": "",
         "content_position": "bottom-left",
