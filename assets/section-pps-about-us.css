@@ -1,0 +1,167 @@
+.pps-about {
+  background: var(--pps-about-bg);
+  padding: var(--pps-about-padding-top) 0 var(--pps-about-padding-bottom);
+}
+
+.pps-about__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(32rem, 0.95fr);
+  align-items: center;
+  gap: var(--pps-about-gap);
+}
+
+.pps-about__copy {
+  max-width: 68rem;
+}
+
+.pps-about__eyebrow {
+  margin: 0 0 1.4rem;
+  color: var(--pps-about-accent);
+  font-size: 1.3rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.pps-about__heading {
+  margin: 0;
+  color: var(--pps-about-heading);
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(4.2rem, 5.8vw, 7rem);
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.pps-about__text {
+  margin-top: 2.2rem;
+  color: var(--pps-about-text);
+  font-size: 1.8rem;
+  line-height: 1.62;
+}
+
+.pps-about__text p {
+  margin: 0;
+}
+
+.pps-about__highlight {
+  margin-top: 2.8rem;
+  color: var(--pps-about-heading);
+  font-size: 1.9rem;
+  line-height: 1.45;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.pps-about__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18rem;
+  min-height: 5rem;
+  margin-top: 3.6rem;
+  padding: 1.4rem 2.6rem;
+  border-radius: 999px;
+  background: var(--pps-about-button-bg);
+  color: var(--pps-about-button-text);
+  text-decoration: none;
+  font-size: 1.55rem;
+  line-height: 1;
+  font-weight: 700;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.pps-about__button:hover {
+  transform: translateY(-0.1rem);
+  opacity: 0.92;
+}
+
+.pps-about__button[aria-disabled='true'] {
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+.pps-about__card {
+  display: grid;
+  gap: 1.4rem;
+  padding: 2rem;
+  border-radius: var(--pps-about-radius);
+  background: linear-gradient(135deg, var(--pps-about-card-bg) 0%, color-mix(in srgb, var(--pps-about-card-bg) 65%, white 35%) 100%);
+  box-shadow: 0 2.2rem 5rem rgb(143 133 231 / 0.12);
+}
+
+.pps-about__media-frame {
+  overflow: hidden;
+  border-radius: calc(var(--pps-about-radius) - 6px);
+  aspect-ratio: 0.9;
+  background: rgb(255 255 255 / 0.5);
+}
+
+.pps-about__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pps-about__placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.pps-about__placeholder-svg {
+  width: 12rem;
+  height: 12rem;
+  opacity: 0.75;
+}
+
+.pps-about__caption {
+  color: var(--pps-about-heading);
+  font-size: 1.5rem;
+  line-height: 1.4;
+  text-align: center;
+  opacity: 0.78;
+}
+
+@media screen and (max-width: 989px) {
+  .pps-about__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .pps-about__copy {
+    max-width: none;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .pps-about__eyebrow {
+    font-size: 1.2rem;
+  }
+
+  .pps-about__heading {
+    font-size: clamp(3.2rem, 11vw, 4.8rem);
+  }
+
+  .pps-about__text {
+    margin-top: 1.8rem;
+    font-size: 1.6rem;
+  }
+
+  .pps-about__highlight {
+    margin-top: 2.2rem;
+    font-size: 1.7rem;
+  }
+
+  .pps-about__button {
+    margin-top: 3rem;
+  }
+
+  .pps-about__card {
+    padding: 1.4rem;
+  }
+}
