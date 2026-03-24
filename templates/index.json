@@ -85,12 +85,70 @@
         "button_text_color": "#2e2420",
         "button_border_color": "#3c3431"
       }
+    },
+    "editorial_faq_yNi3rn": {
+      "type": "editorial-faq",
+      "blocks": {
+        "faq_item_9RMXtk": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What's your return/exchange policy?",
+            "answer": "<p>Use this area to answer the question in the same editorial style as the rest of the page.</p>"
+          }
+        },
+        "faq_item_C4AQD7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you offer international shipping?",
+            "answer": "<p>Use this area to answer the question in the same editorial style as the rest of the page.</p>"
+          }
+        },
+        "faq_item_Hmf6gW": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What materials do you use?",
+            "answer": "<p>Use this area to answer the question in the same editorial style as the rest of the page.</p>"
+          }
+        },
+        "faq_item_Dng99y": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Who's behind Pixie Peach Studios?",
+            "answer": "<p>Use this area to answer the question in the same editorial style as the rest of the page.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_9RMXtk",
+        "faq_item_C4AQD7",
+        "faq_item_Hmf6gW",
+        "faq_item_Dng99y"
+      ],
+      "name": "Editorial FAQ",
+      "settings": {
+        "heading": "Can I Ask You a Question...?",
+        "open_first_item": false,
+        "button_label": "About Us",
+        "button_link": "",
+        "max_width": 1560,
+        "heading_size_desktop": 58,
+        "heading_size_mobile": 38,
+        "question_size_desktop": 24,
+        "question_size_mobile": 20,
+        "text_color": "#111111",
+        "border_color": "#1a1a1a",
+        "button_background": "#e8b4d0",
+        "button_text_color": "#ffffff",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
     }
   },
   "order": [
     "pps_hero_V8CwW8",
     "animated_pink_banner_yhfLVk",
     "pps_story_creJDi",
-    "pps_featured_favorites_d7GkiV"
+    "pps_featured_favorites_d7GkiV",
+    "editorial_faq_yNi3rn"
   ]
 }
