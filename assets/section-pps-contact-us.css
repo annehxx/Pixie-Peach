@@ -76,6 +76,19 @@
   box-shadow: 0 2rem 4.5rem rgb(143 133 231 / 0.12);
 }
 
+.pps-contact__form {
+  display: grid;
+  gap: 1.6rem;
+}
+
+.pps-contact__form .contact__fields {
+  gap: 1.6rem;
+}
+
+.pps-contact__form .field {
+  margin-bottom: 0;
+}
+
 .pps-contact__form .field__input,
 .pps-contact__form .text-area {
   background: rgb(255 248 252 / 0.7);
@@ -96,7 +109,7 @@
 }
 
 .pps-contact__button-wrap {
-  margin-top: 2.6rem;
+  margin-top: 0.8rem;
 }
 
 .pps-contact__button {
@@ -148,6 +161,14 @@
 
   .pps-contact__form-card {
     padding: 1.6rem;
+  }
+
+  .pps-contact__form {
+    gap: 1.2rem;
+  }
+
+  .pps-contact__form .contact__fields {
+    gap: 1.2rem;
   }
 
   .pps-contact__button {
