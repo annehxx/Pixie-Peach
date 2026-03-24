@@ -20,17 +20,15 @@
 {%- endstyle -%}
 
 <div class="animated-banner-wrapper section-{{ section.id }}-padding">
-  <div class="animated-banner animated-banner-{{ section.id }} animated-banner--{{ section.settings.animation_type }}">
-    <div class="animated-banner__content">
+  <div class="animated-banner animated-banner-{{ section.id }} animated-banner--ticker">
+    <div class="animated-banner__ticker">
       {%- if section.settings.banner_text != blank -%}
-        <h2 class="animated-banner__text h3">
-          {{ section.settings.banner_text | escape }}
-        </h2>
-      {%- endif -%}
-      {%- if section.settings.banner_subtext != blank -%}
-        <p class="animated-banner__subtext">
-          {{ section.settings.banner_subtext | escape }}
-        </p>
+        <div class="animated-banner__text-scroll">
+          <span>{{ section.settings.banner_text | escape }}</span>
+          <span>{{ section.settings.banner_text | escape }}</span>
+          <span>{{ section.settings.banner_text | escape }}</span>
+          <span>{{ section.settings.banner_text | escape }}</span>
+        </div>
       {%- endif -%}
     </div>
   </div>
@@ -48,39 +46,10 @@
     {
       "type": "text",
       "id": "banner_text",
-      "default": "✨ Willkommen! ✨",
+      "default": "For the pop culture obsessed",
       "label": "Banner Text"
     },
-    {
-      "type": "text",
-      "id": "banner_subtext",
-      "default": "Entdecke unsere neuen Produkte",
-      "label": "Banner Untertext"
-    },
-    {
-      "type": "select",
-      "id": "animation_type",
-      "options": [
-        {
-          "value": "float",
-          "label": "Schwebend (Float)"
-        },
-        {
-          "value": "bounce",
-          "label": "Springend (Bounce)"
-        },
-        {
-          "value": "slide",
-          "label": "Gleitend (Slide)"
-        },
-        {
-          "value": "pulse",
-          "label": "Pulsierend (Pulse)"
-        }
-      ],
-      "default": "float",
-      "label": "Animationstyp"
-    },
+
     {
       "type": "color",
       "id": "banner_color",
