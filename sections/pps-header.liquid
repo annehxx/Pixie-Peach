@@ -134,7 +134,12 @@
       {%- endif -%}
 
       {%- if section.settings.show_cart -%}
-        <a href="{{ routes.cart_url }}" class="pps-header__icon-link pps-header__cart-link" aria-label="Cart">
+        <a
+          href="{{ routes.cart_url }}"
+          class="pps-header__icon-link pps-header__cart-link{% if cart.item_count > 0 %} is-active{% endif %}"
+          aria-label="Cart"
+          data-cart-count="{{ cart.item_count }}"
+        >
           <span class="pps-header__icon">
             {%- if cart == empty -%}
               {{ 'icon-cart-empty.svg' | inline_asset_content }}
@@ -143,7 +148,7 @@
             {%- endif -%}
           </span>
           {%- if section.settings.show_cart_count -%}
-            <span class="pps-header__cart-count">{{ cart.item_count }}</span>
+            <span class="pps-header__cart-count{% if cart.item_count > 0 %} is-visible{% endif %}">{{ cart.item_count }}</span>
           {%- endif -%}
         </a>
       {%- endif -%}
