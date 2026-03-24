@@ -1,0 +1,272 @@
+{{ 'section-editorial-faq.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --editorial-faq-max-width: {{ section.settings.max_width }}px;
+    --editorial-faq-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --editorial-faq-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --editorial-faq-question-size-desktop: {{ section.settings.question_size_desktop }}px;
+    --editorial-faq-question-size-mobile: {{ section.settings.question_size_mobile }}px;
+    --editorial-faq-button-bg: {{ section.settings.button_background }};
+    --editorial-faq-button-text: {{ section.settings.button_text_color }};
+    --editorial-faq-border-color: {{ section.settings.border_color }};
+    --editorial-faq-text-color: {{ section.settings.text_color }};
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="editorial-faq section-{{ section.id }}-padding">
+  <div class="page-width editorial-faq__inner">
+    <div class="editorial-faq__intro">
+      <div class="editorial-faq__icon" aria-hidden="true">?</div>
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="editorial-faq__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <div class="editorial-faq__list">
+      {%- for block in section.blocks -%}
+        <div class="editorial-faq__item" {{ block.shopify_attributes }}>
+          <details
+            class="editorial-faq__details"
+            {% if section.settings.open_first_item and forloop.first %}
+              open
+            {% endif %}
+          >
+            <summary class="editorial-faq__summary">
+              <span class="editorial-faq__question">{{ block.settings.question }}</span>
+              <span class="editorial-faq__toggle" aria-hidden="true"></span>
+            </summary>
+
+            <div class="editorial-faq__answer rte">
+              {{ block.settings.answer }}
+            </div>
+          </details>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="editorial-faq__footer">
+        <a
+          {% if section.settings.button_link != blank %}
+            href="{{ section.settings.button_link }}"
+          {% else %}
+            role="link" aria-disabled="true"
+          {% endif %}
+          class="editorial-faq__button"
+        >
+          {{ section.settings.button_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial FAQ",
+  "tag": "section",
+  "class": "section-editorial-faq",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Can I Ask You a Question...?"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first_item",
+      "label": "Open first item",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "About Us"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1800,
+      "step": 20,
+      "unit": "px",
+      "label": "Content width",
+      "default": 1560
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 36,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size desktop",
+      "default": 58
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 28,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size mobile",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "question_size_desktop",
+      "min": 18,
+      "max": 42,
+      "step": 1,
+      "unit": "px",
+      "label": "Question size desktop",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "question_size_mobile",
+      "min": 16,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Question size mobile",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#8f85e7"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Do you only specialize in music or also TV?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Use this area to answer the question in the same editorial style as the rest of the page.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you only specialize in music or also TV?"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What's your return/exchange policy?"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you offer international shipping?"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What materials do you use?"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Who's behind Bad Romance?"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
