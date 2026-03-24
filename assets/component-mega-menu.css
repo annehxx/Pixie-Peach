@@ -85,3 +85,47 @@
 .mega-menu__list--condensed .mega-menu__link {
   font-weight: normal;
 }
+
+/* Collections section layout */
+.mega-menu__wrapper {
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+.mega-menu__list--menu {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  grid-template-columns: unset;
+}
+
+.mega-menu__list--collections {
+  flex: 1;
+  display: grid;
+  gap: 0.5rem 4rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mega-menu__collections {
+  flex: 1;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1200px) {
+  .mega-menu__wrapper {
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+
+  .mega-menu__list--collections {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .mega-menu__list--collections {
+    grid-template-columns: 1fr;
+  }
+}
