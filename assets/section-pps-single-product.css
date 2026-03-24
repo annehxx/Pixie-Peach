@@ -166,7 +166,7 @@
 
 .pps-single__form {
   display: grid;
-  gap: 1.8rem;
+  gap: 2.6rem;
   padding: 2.6rem;
   border: 1px solid var(--pps-single-border);
   border-radius: var(--pps-single-radius);
@@ -176,7 +176,7 @@
 
 .pps-single__options {
   display: grid;
-  gap: 1.6rem;
+  gap: 2.4rem;
 }
 
 .pps-single__option-group {
@@ -184,7 +184,7 @@
   padding: 0;
   border: 0;
   display: grid;
-  gap: 0.85rem;
+  gap: 1.35rem;
 }
 
 .pps-single__option-label {
@@ -198,7 +198,7 @@
 .pps-single__option-values {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.85rem;
+  gap: 1.2rem;
 }
 
 .pps-single__option-input {
@@ -237,7 +237,8 @@
 .pps-single__purchase-row {
   display: grid;
   grid-template-columns: 11rem minmax(0, 1fr);
-  gap: 1rem;
+  gap: 1.4rem;
+  margin-top: 0.4rem;
 }
 
 .pps-single__quantity {
@@ -386,6 +387,7 @@
   }
 
   .pps-single__form {
+    gap: 2.2rem;
     padding: 2rem;
   }
 
