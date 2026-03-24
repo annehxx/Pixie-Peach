@@ -64,9 +64,6 @@
     {%- if selected_collection != blank and selected_collection.products.size > 0 -%}
       <div class="editorial-product-grid">
         {%- for product in selected_collection.products limit: product_limit -%}
-          {%- liquid
-            assign product_image_alt = product.featured_media.alt | default: product.title
-          -%}
           <article class="editorial-product-card">
             <a href="{{ product.url }}" class="editorial-product-card__media-link">
               <div class="editorial-product-card__media">
@@ -78,7 +75,7 @@
                       class: 'editorial-product-card__image',
                       widths: '320, 480, 640, 900',
                       sizes: '(min-width: 1200px) 16vw, (min-width: 750px) 24vw, 48vw',
-                      alt: product_image_alt,
+                      alt: product.featured_media.alt | default: product.title,
                       loading: 'lazy'
                   }}
                 {%- else -%}
@@ -100,7 +97,7 @@
       </div>
     {%- else -%}
       <div class="editorial-product-grid__empty">
-        Bitte waehle eine Collection mit Produkten aus.
+        Bitte wähle eine Collection mit Produkten aus.
       </div>
     {%- endif -%}
   </div>
@@ -120,7 +117,7 @@
     {
       "type": "text",
       "id": "heading",
-      "label": "Ueberschrift"
+      "label": "Überschrift"
     },
     {
       "type": "checkbox",
@@ -231,7 +228,7 @@
       "max": 32,
       "step": 1,
       "unit": "px",
-      "label": "Titelgroesse",
+      "label": "Titelgröße",
       "default": 17
     },
     {
@@ -241,12 +238,12 @@
       "max": 24,
       "step": 1,
       "unit": "px",
-      "label": "Preisgroesse",
+      "label": "Preisgröße",
       "default": 15
     },
     {
       "type": "header",
-      "content": "Abstaende"
+      "content": "Abstände"
     },
     {
       "type": "range",
