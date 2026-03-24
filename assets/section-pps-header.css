@@ -41,12 +41,15 @@
 
 .pps-header__nav {
   min-width: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .pps-header__menu {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 3.2rem;
   margin: 0;
   padding: 0;
@@ -62,7 +65,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  font-size: 1.8rem;
+  font-size: 1.55rem;
   line-height: 1;
   letter-spacing: 0.01em;
   transition: opacity 0.2s ease, color 0.2s ease;
@@ -190,6 +193,11 @@
   position: relative;
 }
 
+.pps-header__cart-link .pps-header__icon {
+  width: 2.7rem;
+  height: 2.7rem;
+}
+
 .pps-header__cart-count {
   position: absolute;
   top: -0.7rem;
@@ -245,11 +253,16 @@
   .pps-header__menu-link,
   .pps-header__localization,
   .pps-header__icon-link {
-    font-size: 1.6rem;
+    font-size: 1.45rem;
   }
 
   .pps-header__menu {
     gap: 1.4rem 1.8rem;
+  }
+
+  .pps-header__cart-link .pps-header__icon {
+    width: 2.4rem;
+    height: 2.4rem;
   }
 
   .pps-header__submenu-wrap {
