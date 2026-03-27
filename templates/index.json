@@ -45,8 +45,8 @@
       "type": "collection-showcase",
       "name": "Collection Showcase",
       "settings": {
-        "title": "Heated All The Time.",
-        "collection": "heated-all-the-time",
+        "title": "Sweet but Unstable",
+        "collection": "sweet-but-unstable",
         "link_label": "Shop Collection",
         "products_to_show": 4,
         "columns_desktop": 4,
