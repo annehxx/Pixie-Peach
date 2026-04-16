@@ -106,6 +106,17 @@
   position: relative;
 }
 
+.pps-header__bag-icon {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+}
+
+.pps-header__bag-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
 .pps-header__bag-count {
   font-size: 1.1rem;
   letter-spacing: 0.08em;

@@ -77,7 +77,13 @@
           class="pps-header__action-link pps-header__bag-link{% if cart.item_count > 0 %} is-active{% endif %}"
           aria-label="bag"
         >
-          <span>bag</span>
+          <span class="pps-header__bag-icon" aria-hidden="true">
+            {%- if cart == empty -%}
+              {{ 'icon-cart-empty.svg' | inline_asset_content }}
+            {%- else -%}
+              {{ 'icon-cart.svg' | inline_asset_content }}
+            {%- endif -%}
+          </span>
           {%- if section.settings.show_cart_count and cart.item_count > 0 -%}
             <span class="pps-header__bag-count">{{ cart.item_count }}</span>
           {%- endif -%}
