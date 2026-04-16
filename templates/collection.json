@@ -11,33 +11,10 @@
   "sections": {
     "banner": {
       "type": "main-collection-banner",
-      "disabled": true,
       "settings": {
         "show_collection_description": true,
         "show_collection_image": false,
         "color_scheme": "scheme-1"
-      }
-    },
-    "editorial_vault_banner_d4BUYy": {
-      "type": "editorial-vault-banner",
-      "name": "Editorial Vault Banner",
-      "settings": {
-        "background_image": "shopify://shop_images/ChatGPT_Image_24._Maerz_2026_10_48_06.png",
-        "eyebrow": "All Products",
-        "heading": "Fresh Out the Vault",
-        "subtext": "",
-        "button_label": "",
-        "button_link": "",
-        "content_position": "bottom-left",
-        "height_desktop": 560,
-        "height_mobile": 360,
-        "content_max_width": 700,
-        "content_padding_horizontal": 32,
-        "content_padding_vertical": 28,
-        "overlay_opacity": 35,
-        "heading_size_desktop": 64,
-        "heading_size_mobile": 40,
-        "text_color": "#ffffff"
       }
     },
     "product-grid": {
@@ -63,7 +40,6 @@
   },
   "order": [
     "banner",
-    "editorial_vault_banner_d4BUYy",
     "product-grid"
   ]
 }
