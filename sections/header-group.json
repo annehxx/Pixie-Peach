@@ -35,7 +35,7 @@
       "type": "pps-header",
       "name": "PPS Header",
       "settings": {
-        "logo": "shopify://shop_images/logo_05e61b7b-06b5-4a74-aa90-889b1e546262.png",
+        "logo": "shopify://shop_images/logo-Photoroom_020a5fb3-8b50-4cf8-9ef0-9c1c237cb19f.png",
         "logo_link": "",
         "logo_width": 168,
         "menu": "main-menu",
@@ -48,11 +48,11 @@
         "show_cart": true,
         "show_cart_count": false,
         "enable_sticky": false,
-        "background_color": "#F7F4EF",
+        "background_color": "#f7f4ef",
         "text_color": "#6d5650",
         "border_color": "#d8d0cd",
-        "padding_vertical": 22,
-        "padding_horizontal": 24
+        "padding_vertical": 12,
+        "padding_horizontal": 48
       }
     }
   },
