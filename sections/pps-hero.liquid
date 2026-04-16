@@ -10,8 +10,10 @@
     --pps-hero-height-mobile: {{ section.settings.hero_height_mobile }}px;
     --pps-hero-card-max-width: {{ section.settings.card_max_width }}px;
     --pps-hero-card-bg: {{ section.settings.card_background }};
+    --pps-hero-card-border: {{ section.settings.card_border_color }};
     --pps-hero-heading-color: {{ section.settings.heading_color }};
     --pps-hero-text-color: {{ section.settings.text_color }};
+    --pps-hero-accent: {{ section.settings.accent_color }};
     --pps-hero-button-bg: {{ section.settings.button_background }};
     --pps-hero-button-text: {{ section.settings.button_text_color }};
     --pps-hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
@@ -40,6 +42,10 @@
 
   <div class="pps-hero__content-wrap page-width">
     <div class="pps-hero__card">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="pps-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
       {%- if section.settings.heading != blank -%}
         <h2 class="pps-hero__heading">{{ section.settings.heading }}</h2>
       {%- endif -%}
@@ -48,17 +54,42 @@
         <div class="pps-hero__subtext rte">{{ section.settings.subtext }}</div>
       {%- endif -%}
 
-      {%- if section.settings.button_label != blank -%}
-        <a
-          {% if section.settings.button_link != blank %}
-            href="{{ section.settings.button_link }}"
-          {% else %}
-            role="link" aria-disabled="true"
-          {% endif %}
-          class="pps-hero__button"
-        >
-          {{ section.settings.button_label }}
-        </a>
+      <div class="pps-hero__actions">
+        {%- if section.settings.button_label != blank -%}
+          <a
+            {% if section.settings.button_link != blank %}
+              href="{{ section.settings.button_link }}"
+            {% else %}
+              role="link" aria-disabled="true"
+            {% endif %}
+            class="pps-hero__button"
+          >
+            {{ section.settings.button_label }}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.microcopy != blank -%}
+          <p class="pps-hero__microcopy">{{ section.settings.microcopy }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- assign has_highlights = false -%}
+      {%- if section.settings.highlight_1 != blank or section.settings.highlight_2 != blank or section.settings.highlight_3 != blank -%}
+        {%- assign has_highlights = true -%}
+      {%- endif -%}
+
+      {%- if has_highlights -%}
+        <div class="pps-hero__highlights" aria-label="Highlights">
+          {%- if section.settings.highlight_1 != blank -%}
+            <span class="pps-hero__highlight">{{ section.settings.highlight_1 }}</span>
+          {%- endif -%}
+          {%- if section.settings.highlight_2 != blank -%}
+            <span class="pps-hero__highlight">{{ section.settings.highlight_2 }}</span>
+          {%- endif -%}
+          {%- if section.settings.highlight_3 != blank -%}
+            <span class="pps-hero__highlight">{{ section.settings.highlight_3 }}</span>
+          {%- endif -%}
+        </div>
       {%- endif -%}
     </div>
   </div>
@@ -76,27 +107,57 @@
       "label": "Background image"
     },
     {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Cherry Milk"
+    },
+    {
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "Warning: Outfit May Cause Attention"
+      "default": "Soft. Sweet. A little dangerous."
     },
     {
       "type": "richtext",
       "id": "subtext",
       "label": "Subtext",
-      "default": "<p>Soft cotton. Cute graphics. Perfect fit.</p>"
+      "default": "<p>Baby tees, glossy details, and cherry-red attitude for your main-character closet.</p>"
     },
     {
       "type": "text",
       "id": "button_label",
       "label": "Button label",
-      "default": "SHOP NOW"
+      "default": "Shop the drop"
     },
     {
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "microcopy",
+      "label": "Microcopy",
+      "default": "Premium fits. Fast favorites. Easy to style."
+    },
+    {
+      "type": "text",
+      "id": "highlight_1",
+      "label": "Highlight 1",
+      "default": "Baby-tee energy"
+    },
+    {
+      "type": "text",
+      "id": "highlight_2",
+      "label": "Highlight 2",
+      "default": "Cherry-red accents"
+    },
+    {
+      "type": "text",
+      "id": "highlight_3",
+      "label": "Highlight 3",
+      "default": "Soft cotton feel"
     },
     {
       "type": "header",
@@ -160,25 +221,37 @@
       "type": "color",
       "id": "card_background",
       "label": "Card background",
-      "default": "#ececed"
+      "default": "#fff9f3"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#f3c8d3"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#c51f3a"
     },
     {
       "type": "color",
       "id": "heading_color",
       "label": "Heading color",
-      "default": "#252129"
+      "default": "#22181b"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text color",
-      "default": "#8f8888"
+      "default": "#6b565d"
     },
     {
       "type": "color",
       "id": "button_background",
       "label": "Button background",
-      "default": "#12131a"
+      "default": "#c51f3a"
     },
     {
       "type": "color",
