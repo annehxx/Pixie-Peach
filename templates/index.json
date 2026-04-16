@@ -9,6 +9,100 @@
  */
 {
   "sections": {
+    "pps_icon_closet_kBXMgc": {
+      "type": "pps-icon-closet",
+      "blocks": {
+        "closet_card_RedNbm": {
+          "type": "closet_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/16306934743079837608_2048.jpg",
+            "title": "Favorites",
+            "link": "",
+            "rotation": "left-sm"
+          }
+        },
+        "closet_card_pEfMTw": {
+          "type": "closet_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/2530900296897667699_2048.jpg",
+            "title": "Sweet & Sparkly",
+            "link": "",
+            "rotation": "right-sm"
+          }
+        },
+        "closet_card_9crhnx": {
+          "type": "closet_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/13572224955852820696_2048.jpg",
+            "title": "Iconic",
+            "link": "",
+            "rotation": "left-lg"
+          }
+        },
+        "closet_card_pHRXAD": {
+          "type": "closet_card",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/8587762117409609180_2048.jpg",
+            "title": "Main Character",
+            "link": "",
+            "rotation": "none"
+          }
+        }
+      },
+      "block_order": [
+        "closet_card_RedNbm",
+        "closet_card_pEfMTw",
+        "closet_card_9crhnx",
+        "closet_card_pHRXAD"
+      ],
+      "name": "PPS Icon Closet",
+      "settings": {
+        "heading": "Closet Full of Icons",
+        "card_width": 240,
+        "image_height": 210,
+        "card_gap": 28,
+        "background_color": "#e94b4b",
+        "heading_color": "#f7f4ef",
+        "card_background": "#f7f4ef",
+        "card_text_color": "#3a2e2e",
+        "shadow_color": "#3a2e2e",
+        "padding_top": 64,
+        "padding_bottom": 72
+      }
+    },
+    "featured_collection_AH7Pjd": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "all",
+        "products_to_show": 8,
+        "title": "Vorgestellte Kollektion",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "editorial_faq_yNi3rn": {
       "type": "editorial-faq",
       "blocks": {
@@ -68,6 +162,8 @@
     }
   },
   "order": [
+    "pps_icon_closet_kBXMgc",
+    "featured_collection_AH7Pjd",
     "editorial_faq_yNi3rn"
   ]
 }
