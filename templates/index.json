@@ -80,7 +80,7 @@
       "settings": {
         "collection": "all",
         "products_to_show": 8,
-        "title": "Vorgestellte Kollektion",
+        "title": "Cherry Picks",
         "heading_size": "h1",
         "description": "",
         "show_description": false,
@@ -130,8 +130,8 @@
         "faq_item_Dng99y": {
           "type": "faq_item",
           "settings": {
-            "question": "Who's behind Pixie Peach Studios?",
-            "answer": "<p>Use this area to answer the question in the same editorial style as the rest of the page.</p>"
+            "question": "Who's behind Cherry Milk",
+            "answer": "<p>We are a new y2k brand based in Berlin :)</p>"
           }
         }
       },
@@ -154,7 +154,7 @@
         "question_size_mobile": 20,
         "text_color": "#111111",
         "border_color": "#1a1a1a",
-        "button_background": "#e8b4d0",
+        "button_background": "#e94b4b",
         "button_text_color": "#ffffff",
         "padding_top": 72,
         "padding_bottom": 72
