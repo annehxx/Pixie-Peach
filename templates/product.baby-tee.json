@@ -123,11 +123,11 @@
         "padding_bottom": 124,
         "background_color": "#ffffff",
         "heading_color": "#191516",
-        "text_color": "#5f4d57",
-        "accent_color": "#6d5650",
+        "text_color": "#3a2e2e",
+        "accent_color": "#3a2e2e",
         "surface_color": "#ffffff",
-        "border_color": "#6d5650",
-        "button_background": "#6d5650",
+        "border_color": "#3a2e2e",
+        "button_background": "#e94b4b",
         "button_text_color": "#ffffff"
       }
     },
