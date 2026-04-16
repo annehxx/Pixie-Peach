@@ -35,6 +35,7 @@
       "type": "pps-header",
       "name": "PPS Header",
       "settings": {
+        "logo": "shopify://shop_images/logo_05e61b7b-06b5-4a74-aa90-889b1e546262.png",
         "logo_link": "",
         "logo_width": 112,
         "menu": "main-menu",
