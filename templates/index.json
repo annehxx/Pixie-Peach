@@ -26,7 +26,7 @@
         "hero_height_desktop": 720,
         "hero_height_mobile": 560,
         "card_max_width": 640,
-        "overlay_opacity": 14,
+        "overlay_opacity": 15,
         "margin_bottom": 0,
         "card_background": "#fff9f3",
         "card_border_color": "#f3c8d3",
