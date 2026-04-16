@@ -4,6 +4,7 @@
   assign header_logo = section.settings.logo | default: settings.logo
   assign logo_alt = header_logo.alt | default: shop.name | escape
   assign header_tag = 'div'
+  assign primary_menu = linklists[section.settings.menu]
 
   if section.settings.enable_sticky
     assign header_tag = 'sticky-header'
@@ -23,30 +24,11 @@
 
 <{{ header_tag }} class="pps-header-shell{% if section.settings.enable_sticky %} pps-header-shell--sticky{% endif %}">
   <header class="pps-header page-width">
-    <div class="pps-header__logo">
-      <a href="{{ section.settings.logo_link | default: routes.root_url }}" class="pps-header__logo-link">
-        {%- if header_logo != blank -%}
-          {{
-            header_logo
-            | image_url: width: 400
-            | image_tag:
-              class: 'pps-header__logo-image',
-              widths: '120, 180, 240, 320, 400',
-              width: section.settings.logo_width,
-              alt: logo_alt,
-              loading: 'eager'
-          }}
-        {%- else -%}
-          <span class="pps-header__logo-text">{{ shop.name }}</span>
-        {%- endif -%}
-      </a>
-    </div>
-
-    <nav class="pps-header__nav" aria-label="{{ section.settings.menu_label | escape }}">
-      {%- if section.settings.menu != blank -%}
-        <ul class="pps-header__menu list-unstyled" role="list">
-          {%- for link in linklists[section.settings.menu].links -%}
-            <li class="pps-header__menu-item{% if link.links != blank %} pps-header__menu-item--has-children{% endif %}">
+    <nav class="pps-header__nav pps-header__nav--left" aria-label="{{ section.settings.menu_label | escape }}">
+      <ul class="pps-header__menu list-unstyled" role="list">
+        {%- if primary_menu != blank and primary_menu.links.size > 0 -%}
+          {%- for link in primary_menu.links limit: 2 -%}
+            <li class="pps-header__menu-item">
               <a
                 href="{{ link.url }}"
                 class="pps-header__menu-link{% if link.current %} is-active{% endif %}"
@@ -54,101 +36,50 @@
                   aria-current="page"
                 {% endif %}
               >
-                <span>{{- link.title -}}</span>
-                {%- if link.links != blank -%}
-                  <span class="pps-header__menu-caret" aria-hidden="true">
-                    {{ 'icon-caret.svg' | inline_asset_content }}
-                  </span>
-                {%- endif -%}
+                {{- link.title | downcase -}}
               </a>
-
-              {%- if link.links != blank -%}
-                <div class="pps-header__submenu-wrap">
-                  <div class="pps-header__submenu page-width">
-                    <div class="pps-header__submenu-grid">
-                      {%- for childlink in link.links -%}
-                        <div class="pps-header__submenu-column">
-                          <a
-                            href="{{ childlink.url }}"
-                            class="pps-header__submenu-link{% if childlink.current %} is-active{% endif %}"
-                            {% if childlink.current %}
-                              aria-current="page"
-                            {% endif %}
-                          >
-                            {{- childlink.title -}}
-                          </a>
-
-                          {%- if childlink.links != blank -%}
-                            <ul class="pps-header__submenu-children list-unstyled" role="list">
-                              {%- for grandchildlink in childlink.links -%}
-                                <li>
-                                  <a
-                                    href="{{ grandchildlink.url }}"
-                                    class="pps-header__submenu-child-link{% if grandchildlink.current %} is-active{% endif %}"
-                                    {% if grandchildlink.current %}
-                                      aria-current="page"
-                                    {% endif %}
-                                  >
-                                    {{- grandchildlink.title -}}
-                                  </a>
-                                </li>
-                              {%- endfor -%}
-                            </ul>
-                          {%- endif -%}
-                        </div>
-                      {%- endfor -%}
-                    </div>
-                  </div>
-                </div>
-              {%- endif -%}
             </li>
           {%- endfor -%}
-        </ul>
-      {%- endif -%}
+        {%- else -%}
+          <li class="pps-header__menu-item"><a href="/collections/all" class="pps-header__menu-link">shop</a></li>
+          <li class="pps-header__menu-item"><a href="/pages/about" class="pps-header__menu-link">about</a></li>
+        {%- endif -%}
+      </ul>
     </nav>
 
-    <div class="pps-header__actions">
-      {%- if section.settings.show_localization -%}
-        <a href="{{ routes.root_url }}" class="pps-header__localization">
-          <span>{{ section.settings.country_label }}</span>
-          <span aria-hidden="true">|</span>
-          <span>{{ section.settings.currency_label }}</span>
-          <span class="pps-header__caret" aria-hidden="true">{{ 'icon-caret.svg' | inline_asset_content }}</span>
-        </a>
-      {%- endif -%}
+    <div class="pps-header__logo">
+      <a href="{{ section.settings.logo_link | default: routes.root_url }}" class="pps-header__logo-link" aria-label="{{ shop.name }}">
+        {%- if header_logo != blank -%}
+          {{
+            header_logo
+            | image_url: width: 520
+            | image_tag:
+              class: 'pps-header__logo-image',
+              widths: '160, 220, 320, 420, 520',
+              width: section.settings.logo_width,
+              alt: logo_alt,
+              loading: 'eager'
+          }}
+        {%- else -%}
+          <span class="pps-header__logo-text">{{ shop.name | downcase }}</span>
+        {%- endif -%}
+      </a>
+    </div>
 
+    <div class="pps-header__actions" aria-label="Header actions">
       {%- if section.settings.show_search -%}
-        <a href="{{ routes.search_url }}" class="pps-header__icon-link" aria-label="Search">
-          <span class="pps-header__icon">{{ 'icon-search.svg' | inline_asset_content }}</span>
-        </a>
-      {%- endif -%}
-
-      {%- if section.settings.show_account and shop.customer_accounts_enabled -%}
-        <a
-          href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-          class="pps-header__icon-link"
-          aria-label="{% if customer %}Account{% else %}Log in{% endif %}"
-        >
-          <span class="pps-header__icon">{{ 'icon-account.svg' | inline_asset_content }}</span>
-        </a>
+        <a href="{{ routes.search_url }}" class="pps-header__action-link">search</a>
       {%- endif -%}
 
       {%- if section.settings.show_cart -%}
         <a
           href="{{ routes.cart_url }}"
-          class="pps-header__icon-link pps-header__cart-link{% if cart.item_count > 0 %} is-active{% endif %}"
-          aria-label="Cart"
-          data-cart-count="{{ cart.item_count }}"
+          class="pps-header__action-link pps-header__bag-link{% if cart.item_count > 0 %} is-active{% endif %}"
+          aria-label="bag"
         >
-          <span class="pps-header__icon">
-            {%- if cart == empty -%}
-              {{ 'icon-cart-empty.svg' | inline_asset_content }}
-            {%- else -%}
-              {{ 'icon-cart.svg' | inline_asset_content }}
-            {%- endif -%}
-          </span>
-          {%- if section.settings.show_cart_count -%}
-            <span class="pps-header__cart-count{% if cart.item_count > 0 %} is-visible{% endif %}">{{ cart.item_count }}</span>
+          <span>bag</span>
+          {%- if section.settings.show_cart_count and cart.item_count > 0 -%}
+            <span class="pps-header__bag-count">{{ cart.item_count }}</span>
           {%- endif -%}
         </a>
       {%- endif -%}
@@ -219,11 +150,11 @@
       "type": "range",
       "id": "logo_width",
       "min": 60,
-      "max": 180,
+      "max": 280,
       "step": 4,
       "unit": "px",
       "label": "Logo width",
-      "default": 112
+      "default": 168
     },
     {
       "type": "link_list",
@@ -293,7 +224,7 @@
       "type": "color",
       "id": "background_color",
       "label": "Background",
-      "default": "#e8e8eb"
+      "default": "#F7F4EF"
     },
     {
       "type": "color",
