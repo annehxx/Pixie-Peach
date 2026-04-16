@@ -1,0 +1,217 @@
+{{ 'section-pps-editorial-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign hero_alt = section.settings.heading | default: shop.name | strip_html | escape
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --pps-editorial-hero-height-desktop: {{ section.settings.height_desktop }}px;
+    --pps-editorial-hero-height-mobile: {{ section.settings.height_mobile }}px;
+    --pps-editorial-hero-content-max-width: {{ section.settings.content_max_width }}px;
+    --pps-editorial-hero-content-horizontal: {{ section.settings.content_offset_horizontal }}%;
+    --pps-editorial-hero-content-vertical: {{ section.settings.content_offset_vertical }}%;
+    --pps-editorial-hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --pps-editorial-hero-heading-color: {{ section.settings.heading_color }};
+    --pps-editorial-hero-text-color: {{ section.settings.text_color }};
+    --pps-editorial-hero-button-bg: {{ section.settings.button_background }};
+    --pps-editorial-hero-button-text: {{ section.settings.button_text_color }};
+    --pps-editorial-hero-button-hover: {{ section.settings.button_hover_background }};
+  }
+{% endstyle %}
+
+<section class="pps-editorial-hero">
+  <div class="pps-editorial-hero__media">
+    {%- if section.settings.background_image != blank -%}
+      {{
+        section.settings.background_image
+        | image_url: width: 2800
+        | image_tag:
+          class: 'pps-editorial-hero__image',
+          widths: '900, 1200, 1600, 2000, 2400, 2800',
+          alt: hero_alt,
+          loading: 'eager'
+      }}
+    {%- else -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'pps-editorial-hero__image pps-editorial-hero__image--placeholder' }}
+    {%- endif -%}
+
+    <div class="pps-editorial-hero__overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="pps-editorial-hero__content page-width pps-editorial-hero__content--{{ section.settings.text_alignment }}">
+    <div class="pps-editorial-hero__copy">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pps-editorial-hero__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheadline != blank -%}
+        <p class="pps-editorial-hero__subheadline">{{ section.settings.subheadline }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          {% if section.settings.button_link != blank %}
+            href="{{ section.settings.button_link }}"
+          {% else %}
+            role="link" aria-disabled="true"
+          {% endif %}
+          class="pps-editorial-hero__button"
+        >
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PPS Editorial Hero",
+  "tag": "section",
+  "class": "section-pps-editorial-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "default": "cherry milk"
+    },
+    {
+      "type": "text",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "soft. sweet. not yours."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "CTA label",
+      "default": "shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "min": 520,
+      "max": 980,
+      "step": 20,
+      "unit": "px",
+      "label": "Desktop height",
+      "default": 760
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "min": 460,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "label": "Mobile height",
+      "default": 640
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 320,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "label": "Content width",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "content_offset_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Content horizontal position",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "content_offset_vertical",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Content vertical position",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Headline color",
+      "default": "#fffaf4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Subheadline color",
+      "default": "#fff4ef"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "CTA background",
+      "default": "#B51E34"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "CTA hover background",
+      "default": "#95162A"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "CTA text color",
+      "default": "#FFF8F2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PPS Editorial Hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,167 @@
+.pps-editorial-hero {
+  position: relative;
+  min-height: var(--pps-editorial-hero-height-desktop);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 14% 20%, rgb(255 244 238 / 0.92), transparent 34%),
+    radial-gradient(circle at 84% 22%, rgb(181 30 52 / 0.14), transparent 22%),
+    linear-gradient(180deg, #f8f1ea 0%, #efe1d8 100%);
+}
+
+.pps-editorial-hero__media,
+.pps-editorial-hero__image,
+.pps-editorial-hero__overlay,
+.pps-editorial-hero__content {
+  position: absolute;
+  inset: 0;
+}
+
+.pps-editorial-hero__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.pps-editorial-hero__image--placeholder {
+  background:
+    radial-gradient(circle at 20% 18%, rgb(255 248 243 / 0.95), transparent 24%),
+    radial-gradient(circle at 78% 24%, rgb(181 30 52 / 0.26), transparent 18%),
+    linear-gradient(135deg, #f8eee7 0%, #e6d1c4 48%, #d7a39d 100%);
+}
+
+.pps-editorial-hero__overlay {
+  background:
+    linear-gradient(180deg, rgb(247 244 239 / 0.08) 0%, rgb(95 38 41 / 0.12) 42%, rgb(44 20 23 / 0.38) 100%),
+    linear-gradient(90deg, rgb(247 244 239 / 0.12) 0%, rgb(247 244 239 / 0.02) 50%, rgb(181 30 52 / var(--pps-editorial-hero-overlay-opacity)) 100%);
+}
+
+.pps-editorial-hero__content {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.2rem 2rem;
+}
+
+.pps-editorial-hero__copy {
+  width: min(100%, var(--pps-editorial-hero-content-max-width));
+  margin-left: calc(var(--pps-editorial-hero-content-horizontal) - 50%);
+  margin-top: calc(var(--pps-editorial-hero-content-vertical) - 50%);
+}
+
+.pps-editorial-hero__content--center .pps-editorial-hero__copy {
+  text-align: center;
+}
+
+.pps-editorial-hero__content--left .pps-editorial-hero__copy {
+  text-align: left;
+}
+
+.pps-editorial-hero__heading {
+  margin: 0;
+  color: var(--pps-editorial-hero-heading-color);
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(4.8rem, 10vw, 9.6rem);
+  font-weight: 700;
+  letter-spacing: -0.08em;
+  line-height: 0.88;
+  text-transform: lowercase;
+  text-wrap: balance;
+  text-shadow: 0 1.2rem 4rem rgb(52 18 20 / 0.22);
+}
+
+.pps-editorial-hero__subheadline {
+  margin: 1.4rem auto 0;
+  max-width: 26rem;
+  color: var(--pps-editorial-hero-text-color);
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.45;
+  text-transform: lowercase;
+}
+
+.pps-editorial-hero__content--left .pps-editorial-hero__subheadline {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.pps-editorial-hero__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 15rem;
+  margin-top: 2.2rem;
+  padding: 1.45rem 2.2rem;
+  border-radius: 999px;
+  background: var(--pps-editorial-hero-button-bg);
+  color: var(--pps-editorial-hero-button-text);
+  font-family: 'Inter', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: lowercase;
+  box-shadow: 0 1.8rem 3.8rem rgb(125 14 32 / 0.24);
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.pps-editorial-hero__button:hover {
+  background: var(--pps-editorial-hero-button-hover);
+  transform: translateY(-0.1rem);
+  box-shadow: 0 2rem 4.4rem rgb(125 14 32 / 0.32);
+}
+
+.pps-editorial-hero__button[aria-disabled='true'] {
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+@media screen and (max-width: 989px) {
+  .pps-editorial-hero {
+    min-height: var(--pps-editorial-hero-height-mobile);
+  }
+
+  .pps-editorial-hero__copy {
+    margin-left: 0;
+    margin-top: 10%;
+  }
+
+  .pps-editorial-hero__heading {
+    font-size: clamp(4.2rem, 15vw, 7rem);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .pps-editorial-hero__content {
+    padding: 2rem 1.8rem 2.6rem;
+    align-items: end;
+  }
+
+  .pps-editorial-hero__copy {
+    width: min(100%, 34rem);
+    margin-top: 0;
+  }
+
+  .pps-editorial-hero__heading {
+    font-size: clamp(3.8rem, 14vw, 5.6rem);
+    line-height: 0.92;
+  }
+
+  .pps-editorial-hero__subheadline {
+    max-width: 22rem;
+    font-size: 1.28rem;
+    letter-spacing: 0.1em;
+  }
+
+  .pps-editorial-hero__button {
+    min-width: 14rem;
+    margin-top: 1.8rem;
+    padding: 1.3rem 2rem;
+    font-size: 1.25rem;
+  }
+}
