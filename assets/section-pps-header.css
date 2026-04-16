@@ -13,6 +13,7 @@
   min-height: 11rem;
   padding: var(--pps-header-padding-y) var(--pps-header-padding-x);
   color: var(--pps-header-text);
+  font-family: 'Inter', sans-serif;
 }
 
 .pps-header__nav,
